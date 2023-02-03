@@ -2,7 +2,8 @@ import time
 import smbus2
 
 si7021_ADD = 40
-si7021_READ_TEMPERATURE = #Add the command to read temperature here
+si7021_READ_TEMPERATURE = 0xF3
+#no hold master mode
 
 
 
