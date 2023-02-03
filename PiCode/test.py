@@ -1,8 +1,10 @@
 import time
 import smbus2
 
-si7021_ADD = #Add the I2C bus address for the sensor here
+si7021_ADD = 40
 si7021_READ_TEMPERATURE = #Add the command to read temperature here
+
+
 
 bus = smbus2.SMBus(1)
 
