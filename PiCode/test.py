@@ -29,7 +29,7 @@ try:
         #convert the result to an int
         temperature = int.from_bytes(read_result.buf[0]+read_result.buf[1],'big')
         celcius = ((175.72 * temperature)/65536) - 46.85
-        print("Temperature: %d", celcius)
+        print("Temperature: ", celcius)
 
 
         bus.i2c_rdwr(cmd_meas_humi)
@@ -39,7 +39,7 @@ try:
         #convert the result to an int
         humidity = int.from_bytes(read_result.buf[0]+read_result.buf[1],'big')
         rel_humidity = ((125 * humidity)/65536) - 6
-        print("Humidity: %d", rel_humidity)
+        print("Humidity: ", rel_humidity)
 
         time.sleep(1.8)
 
