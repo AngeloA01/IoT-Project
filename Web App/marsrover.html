@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+        <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+        <title>
+            A Mars Rover Project
+        </title>
+    </head>
+    <style>
+        @font-face{
+                    font-family:'foreign-alien';
+                    src: url(foreign-alien.ttf);
+                    font-style: normal;
+                    font-weight: 100
+        }
+        @font-face{
+                font-family:'coalition';
+                src: url(Astronomus.ttf);
+                font-style: normal;
+                font-weight: 100
+        }
+        @font-face{
+                font-family:'roboto';
+                src: url(Roboto-Bold.ttf);
+                font-style: normal;
+                font-weight: 100
+        }
+        
+        @font-face{
+                font-family:'robotolight';
+                src: url(Roboto-Light.ttf);
+                font-style: normal;
+                font-weight: 100
+        }
+        .nav_rise {
+            opacity: 0;
+            animation: rise 0.5s ease-in-out forwards;
+            }
+
+        .rise {
+            opacity: 0;
+            animation: rise 1.2s ease-in-out forwards;
+            }
+
+        .subhead_rise {
+            opacity: 0;
+            animation: rise 1.6s ease-in-out forwards;
+            }
+
+
+        @keyframes rise {
+            0% {
+                transform: translateY(2rem);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            }
+
+        
+        body {
+            margin:0;
+            font-family: foreign-alien;
+            font-weight:100;
+            background-image: url(mars_pic.jpg);
+            background-size: cover;
+        }
+
+    .topnav {
+        overflow: hidden;
+        background: linear-gradient(
+            to left,
+            #19a5a3,
+            #142062
+        );
+    }
+    
+    .topnav a {
+        float: left;
+        color:  #00ffb3;
+        border-radius: 100px;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+        font-family: foreign-alien;
+    }
+    
+    .topnav a:hover {
+        background: linear-gradient(
+            to right,
+            #ff6600,
+            #fab83f
+        );
+        color:  #241739;
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.7s;
+        opacity: 2;
+    }
+    
+    .topnav a.active {
+        background: linear-gradient(
+            to left,
+            #ff6600,
+            #fab83f
+        );
+        color: rgb(255, 255, 255);
+        transition: 0.7s;
+    }
+
+    #logo {
+            position: fixed;
+            z-index: 3;
+            top: 0px;
+            right: 0px; 
+            }
+            
+    /*
+    #rover_pic{
+            position: fixed;
+            z-index: 3;
+            top: 300px;
+            right: 650px; 
+            opacity: 70%;
+            }
+      */      
+
+    </style>
+    </head>
+ 
+    <body>
+        
+        <div class="topnav">
+            <a class= "active" href="rover_mainpage.html">Welcome</a>
+            <a class= "nav_rise" href="rover_explore.html">See the Rover in action!</a>
+            <a class= "nav_rise" href="rover_map.html">Map</a>
+            <a class= "nav_rise" href="rover_about.html">About</a>
+            
+        </div>
+
+        <!--
+        <div id="rover_pic">
+            <img src = "rover_pic.png" class="logo" width="500"  >
+        </div>
+    -->
+
+        <div id="logo">
+            <img src = "Roverium_2nd.png" class="logo" width="207"  >
+        </div>
+        
+        <h1 class="h1 rise" style = "color:#ff6a00; font-size:360%; font-family: coalition; text-align: center; position:relative;
+        top:0px; left:0px;">
+          ROVERIUM: AN AUTONOMOUS MARS ROVER
+       </h1>
+    
+        <p class="p subhead_rise" style="color: #fa9819; font-family: roboto; font-size: 150%; position:relative; text-align: center; top:0px; left:0px">
+            Developed by 7 Students of Imperial College London
+        </p>
+
+        <p class= "p subhead_rise" style= " color: #fa9819; font-family: robotolight; font-size:100%; position:relative; text-align: center; top:0px; left:0px">
+        Welcome to our web app! In the navigation bar, we have a map of the rover surroundings
+        as well a screen where you can take control of the rover.
+        </p>
+       
+    </body>
+</html>
