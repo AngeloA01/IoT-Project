@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -109,16 +108,20 @@
     
     <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
+
     <script>
-        function updatesensordata(postElement, data) {
-        document.getElementById("sensor-data").innerHTML = data;
-        }
-        onValue(get_sensor_data, (snapshot) => {
-            const data = snapshot.val();
-            updatesensordata(postElement, data);
-        });
-  
-        
+        // function updatesensordata(postElement, data) {
+        // document.getElementById("sensor-data").innerHTML = data;
+        // }
+        // onValue(get_sensor_data, (snapshot) => {
+        //     const data = snapshot.val();
+        //     updatesensordata(postElement, data);
+        // });
+        import { getDatabase, ref, onValue} from "firebase/database";
+        import { initializeApp } from "firebase/app";
+        import firebase from 'firebase/app';
+        import 'firebase/database';
+
     
         function openNav() {
             document.getElementById("side_menu").style.width = "250px";
@@ -135,7 +138,7 @@
         var firebaseConfig = {
             apiKey: "AIzaSyAz1R9Y4rgIUDR4TINqXvG2BbjZGzlWbXs",
             authDomain: "embedded-lab-2-part-2.firebaseapp.com",
-            databaseURL: "https://embedded-lab-2-part-2-default-rtdb.europe-west1.firebasedatabase.app",
+            databaseURL: "https://embedded-lab-2-part-2.firebaseio.com",
             projectId: "embedded-lab-2-part-2",
             storageBucket: "embedded-lab-2-part-2.appspot.com",
             messagingSenderId: "164614426559",
@@ -143,7 +146,14 @@
             measurementId: "G-FNKN7NGVYY"
         };
         // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
+       const app = initializeApp(firebaseConfig);
+
+        //read data
+        let obj = {
+            Name: 'aryangay',
+            Age: 23
+        }
+        firebase.database('users/users1').set(obj);
 
     </script>
     </body>
