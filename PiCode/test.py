@@ -1,5 +1,19 @@
 import time
 import smbus2
+import time,random
+from google.oauth2 import service_account
+from google.auth.transport.requests import AuthorizedSession
+
+db = "https://embedded-lab-2-part-2-default-rtdb.europe-west1.firebasedatabase.app/"
+
+# Define the private key file (change to use your private key)
+keyfile = "/home/pi/privkey.json"
+
+# Define the required scopes
+scopes = [
+    "https://www.googleapis.com/auth/userinfo.email",
+    "https://www.googleapis.com/auth/firebase.database"
+]
 
 si7021_ADD = 0x40
 si7021_READ_TEMPERATURE = 0xF3
@@ -18,6 +32,11 @@ read_result = smbus2.i2c_msg.read(si7021_ADD,2)
 
 active = True
 
+# Authenticate a credential with the service account (change to use your private key)
+credentials = service_account.Credentials.from_service_account_file(keyfile, scopes=scopes)
+
+# Use the credentials object to authenticate a Requests session.
+authed_session = AuthorizedSession(credentials)
 
 try: 
     while (active):
@@ -40,6 +59,14 @@ try:
         humidity = int.from_bytes(read_result.buf[0]+read_result.buf[1],'big')
         rel_humidity = ((125 * humidity)/65536) - 6
         print("Humidity: ", rel_humidity)
+        response = authed_session.post(db+path, json=data)
+
+        if response.ok:
+            print("Created new node named {}".format(response.json()["name"]))
+        else:
+            raise ConnectionError("Could not write to database: {}".format(response.text))
+
+        data = {"Temperature: ": celcius, "Humidity: ": rel_humidity}
 
         time.sleep(1.8)
 
