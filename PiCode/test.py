@@ -62,6 +62,59 @@ def humidMovingAverage():
 
 counter = 0
 
+#tuple definitions: moderate heat warning, dry conditions, moderate cold warning, ice warning
+messageTuple = {False, False, False, False}
+
+def tupleUpdate():
+    if movingAverage() > 25 and humidMovingAverage() > 40:
+        messageTuple[0] = True
+    else: messageTuple[0] = False
+
+    if humidMovingAverage() < 40 and movingAverage() > 30:
+        messageTuple[0] = True
+        messageTuple[1] = True
+
+    else: 
+        messageTuple[0] = False
+        messageTuple[1] = False
+
+    if movingAverage() < 10:
+        messageTuple[3] = True
+
+    else: messageTuple[3] = False
+
+    if movingAverage < 0: 
+        messageTuple[4] = True
+
+    else: False
+
+def sendMessage(msg):
+    send = True #Placehold. 
+
+def ProcessTuple():
+    messages = {"Hot weather alert, stay hydrated and use suncream. ", 
+                "Dry conditions warning, ensure you drink enough water and stay in the shade", 
+                "Hot, humid conditions, try to stay in the shade", 
+                "Cold conditions, wear warm clothes", 
+                "Sub-zero temperatures, wear warm clothes and be wary of ice."}
+
+    if messageTuple[0] and not messageTuple[1]: 
+        sendMessage(messages[0])
+        sendMessage(messages[2])
+
+    if messageTuple[0] and messageTuple[1]: sendMessage(messages[1])
+
+    if messageTuple[3]: 
+        sendMessage(messages[3])
+
+    if messageTuple[3] and messageTuple[4]:
+        sendMessage[messages[4]]
+
+    
+
+
+
+
 try: 
     while (active):
         #Execute the two transactions with a small delay between them
@@ -88,10 +141,10 @@ try:
         lastTemps[counter%60] = celcius
         lastHumid[counter%60] = rel_humidity
         counter += 1
-        print(movingAverage)
+        print(movingAverage())
 
+        totalAverageTemp = (totalAverageTemp*(counter) + celcius)/(counter+1)
         
-
         # if counter == 10:
         #     #send data - Insert function here
 
