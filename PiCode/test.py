@@ -96,19 +96,24 @@ def ProcessTuple():
                 "Dry conditions warning, ensure you drink enough water and stay in the shade", 
                 "Hot, humid conditions, try to stay in the shade", 
                 "Cold conditions, wear warm clothes", 
-                "Sub-zero temperatures, wear warm clothes and be wary of ice."}
+                "Sub-zero temperatures, wear warm clothes and be wary of ice.",
+                "Conditions nominal, no precautions necessary"}
 
-    if messageTuple[0] and not messageTuple[1]: 
-        sendMessage(messages[0])
-        sendMessage(messages[2])
+    if messageTuple == {False, False, False, False}:
+        sendMessage(messages[5])
+        #default message
+    else:
+        if messageTuple[0] and not messageTuple[1]: 
+            sendMessage(messages[0])
+            sendMessage(messages[2])
 
-    if messageTuple[0] and messageTuple[1]: sendMessage(messages[1])
+        if messageTuple[0] and messageTuple[1]: sendMessage(messages[1])
 
-    if messageTuple[3]: 
-        sendMessage(messages[3])
+        if messageTuple[3]: 
+            sendMessage(messages[3])
 
-    if messageTuple[3] and messageTuple[4]:
-        sendMessage[messages[4]]
+        if messageTuple[3] and messageTuple[4]:
+            sendMessage[messages[4]]
 
     
 
