@@ -6,11 +6,7 @@ import random
 import matplotlib.pyplot as plt
 
 
-
-
-
-#Function Definitions
-timeScale = 1000 #1000 iterations
+timeScale = 10000 #1000 iterations
 
 lastTemps = [None] * 60 #empty array
 
@@ -18,20 +14,7 @@ allTemps = [None] * timeScale
 
 averageTempArray = [None] * timeScale
 
-# a = (0, 1, 1, 1, 2, 3, 7, 7, 23)
-
-#  def count_elements(seq) -> dict:
-#      """Tally elements from `seq`."""
-#      hist = {}
-#    for i in seq:
-# hist[i] = hist.get(i, 0) + 1
-# return hist
-
-# >>> counted = count_elements(a)
-# >>> counted
-# {0: 1, 1: 3, 2: 1, 3: 1, 7: 2, 23: 1}
-
-
+totalAverage = 0
 
 def movingAverage():
     if (lastTemps == [None] * 60):
@@ -52,21 +35,32 @@ def movingAverage():
 def addNewValue(iter, newVal):
         lastTemps[iter%60] = newVal
 
+
+averageLine = [None] * timeScale
 #Code Space
 for a in range(0, timeScale):
-
-    addNewValue(a, (random.random()-0.5) + 20) #20 +- 2.5 deg
+    newtemp = (random.random()-0.5) + 20-(a/100000)
+    addNewValue(a, newtemp) #20 +- 2.5 deg
 
     averageTempArray[a] = movingAverage()
 
+    totalAverage = (totalAverage*(a) + newtemp)/(a+1)
+    averageLine[a] = totalAverage
 
+
+print(totalAverage)
+
+
+
+plt.ylim([19, 21])
 
 x1 = range (0, 60)
 x2 = range(0, timeScale)
 plt.title("All Temps")
-plt.plot (x2, allTemps)
+#plt.plot (x2, allTemps, linewidth = '0.1')
+plt.plot(x2, averageLine, linewidth = '2')
 #plt.title("Moving Average")
-plt.plot(x2, averageTempArray)
+plt.plot(x2, averageTempArray, linewidth = '1')
 plt.show()
 
 

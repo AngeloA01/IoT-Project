@@ -24,8 +24,11 @@ read_result = smbus2.i2c_msg.read(si7021_ADD,2)
 
 active = True
 
-lastTemps = [None] * 60 #empty array
+totalAverageTemp = 0
+totalAverageHumid = 0
 
+lastTemps = [None] * 60 #empty array
+lastHumid = [None] * 60
 
 def movingAverage():
     if (lastTemps == [None] * 60):
@@ -41,9 +44,23 @@ def movingAverage():
                 average = runningSum/measured
                 return average
         
+def humidMovingAverage():
+    if (lastHumid == [None] * 60):
+        return False
+    else:
+        measured = 0
+        runningSum = 0
+        for x in range(0,60):
+            if (lastHumid[x] != [None]):
+                runningSum += lastHumid[x]
+                measured += 1
+            elif lastHumid[x] == [None]:
+                average = runningSum/measured
+                return average
+        
 
 
-
+counter = 0
 
 try: 
     while (active):
@@ -66,7 +83,17 @@ try:
         rel_humidity = ((125 * humidity)/65536) - 6
         print("Humidity: ", rel_humidity)
 
-        time.sleep(1.8)
+        time.sleep(2)
+
+        lastTemps[counter%60] = celcius
+        lastHumid[counter%60] = rel_humidity
+        counter += 1
+        print(movingAverage)
+
+        
+
+        # if counter == 10:
+        #     #send data - Insert function here
 
 except KeyboardInterrupt:
     active = False
