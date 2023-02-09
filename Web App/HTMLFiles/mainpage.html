@@ -107,7 +107,7 @@
 
         <script type="module" src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
         <script type="module" src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
-        <script src="./a.js"></script>
+        <script src="./a.mjs"></script>
         <script type="module" src = 'firebase/app'></script>
         <script type="module" src = 'firebase/database'></script>
 
@@ -133,13 +133,10 @@
         import { initializeApp } from 'firebase/app';
         import { getDatabase, ref, set } from 'firebase/database';
 
-
-        
-
         const firebaseConfig = {
             apiKey: "AIzaSyAz1R9Y4rgIUDR4TINqXvG2BbjZGzlWbXs",
             authDomain: "embedded-lab-2-part-2.firebaseapp.com",
-            databaseURL: "https://embedded-lab-2-part-2.firebaseio.com",
+            databaseURL: "https://embedded-lab-2-part-2-default-rtdb.europe-west1.firebasedatabase.app",
             projectId: "embedded-lab-2-part-2",
             storageBucket: "embedded-lab-2-part-2.appspot.com",
             messagingSenderId: "164614426559",
@@ -157,5 +154,7 @@
 
 
     </script>
+
+    <script src = "initialize.js"></script>
     </body>
 </html>
