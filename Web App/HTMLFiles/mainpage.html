@@ -59,7 +59,7 @@
         }
         .openbtn {
             font-size: 25px;
-            cursor: pointer;
+            cursor:pointer;
             background-color:rgb(152, 36, 7);
             color: rgb(255, 202, 133);
             border-radius: 8px;
@@ -104,25 +104,14 @@
         <p style = "color: rgb(152, 36, 7); font-size: 200%; font-family: quicksandlight; text-align:center; position:relative;
          top:120px;"> to give you advice on how to stay healthy.</p>
         
-        
-    
-    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
 
-    <script>
-        // function updatesensordata(postElement, data) {
-        // document.getElementById("sensor-data").innerHTML = data;
-        // }
-        // onValue(get_sensor_data, (snapshot) => {
-        //     const data = snapshot.val();
-        //     updatesensordata(postElement, data);
-        // });
-        import { getDatabase, ref, onValue} from "firebase/database";
-        import { initializeApp } from "firebase/app";
-        import firebase from 'firebase/app';
-        import 'firebase/database';
+        <script type="module" src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+        <script type="module" src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
+        <script src="./a.js"></script>
+        <script type="module" src = 'firebase/app'></script>
+        <script type="module" src = 'firebase/database'></script>
 
-    
+        <script>
         function openNav() {
             document.getElementById("side_menu").style.width = "250px";
             document.getElementById("main").style.marginLeft = "250px";
@@ -132,10 +121,22 @@
             document.getElementById("side_menu").style.width = "0";
             document.getElementById("main").style.marginLeft = "0";
         }
+        </script>
+    <script type="module">
+        // function updatesensordata(postElement, data) {
+        // document.getElementById("sensor-data").innerHTML = data;
+        // }
+        // onValue(get_sensor_data, (snapshot) => {
+        //     const data = snapshot.val();
+        //     updatesensordata(postElement, data);
+        // });
+        import { initializeApp } from 'firebase/app';
+        import { getDatabase, ref, set } from 'firebase/database';
+
 
         
 
-        var firebaseConfig = {
+        const firebaseConfig = {
             apiKey: "AIzaSyAz1R9Y4rgIUDR4TINqXvG2BbjZGzlWbXs",
             authDomain: "embedded-lab-2-part-2.firebaseapp.com",
             databaseURL: "https://embedded-lab-2-part-2.firebaseio.com",
@@ -146,14 +147,14 @@
             measurementId: "G-FNKN7NGVYY"
         };
         // Initialize Firebase
-       const app = initializeApp(firebaseConfig);
+        firebase.initializeApp(firebaseConfig);
 
         //read data
         let obj = {
-            Name: 'aryangay',
-            Age: 23
-        }
-        firebase.database('users1').set(obj);
+            Name: 'aryan',
+        };
+        firebase.database().ref('users/user1').set(obj);
+
 
     </script>
     </body>

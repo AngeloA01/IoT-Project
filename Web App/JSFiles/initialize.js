@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
+import { getDatabase, ref, set } from "firebase/database";
 
 var firebaseConfig = {
   apiKey: "AIzaSyAz1R9Y4rgIUDR4TINqXvG2BbjZGzlWbXs",
@@ -18,3 +18,12 @@ const app = initializeApp(firebaseConfig);
 
 // Initialize Realtime Database and get a reference to the service
 const database = getDatabase(app);
+
+function writeUserData(userId, name) {
+  const db = getDatabase();
+  set(ref(db, 'users/'), {
+    username: name,
+  });
+}
+
+writeUserData(ziyad)

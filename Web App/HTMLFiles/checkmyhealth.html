@@ -96,9 +96,10 @@
         <strong></strong><h1 style = "color: rgb(255, 178, 123);font-size: 450%; font-family: quicksandbold; text-align: center;
          position:relative; top:60px; left:0px;" class = "text_shadow">HealthEE</strong></h1>
 
-        
-    </body>
 
+    <input type="text" id="email">
+    <button id = "send">Send</button>
+        
     <script>
         function openNav() {
             document.getElementById("side_menu").style.width = "250px";
@@ -110,4 +111,32 @@
             document.getElementById("main").style.marginLeft = "0";
         }
     </script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js"></script>
+
+    <script>
+       
+
+        var firebaseConfig = {
+            apiKey: "AIzaSyAz1R9Y4rgIUDR4TINqXvG2BbjZGzlWbXs",
+            authDomain: "embedded-lab-2-part-2.firebaseapp.com",
+            databaseURL: "https://embedded-lab-2-part-2.firebaseio.com",
+            projectId: "embedded-lab-2-part-2",
+            storageBucket: "embedded-lab-2-part-2.appspot.com",
+            messagingSenderId: "164614426559",
+            appId: "1:164614426559:web:cf7044cee5ca58327adb0a",
+            measurementId: "G-FNKN7NGVYY"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        var firebaseRef = firebase.database().ref('emails');
+        document.querySelector('#send').addEventListener('click', ()=>{
+            const email = document.getElementById('email').value;
+            firebaseRef.update(email);
+        })
+
+
+    </script>
+    </body>
 </html>
