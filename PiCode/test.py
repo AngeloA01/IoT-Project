@@ -3,6 +3,11 @@ import smbus2
 import random
 from google.oauth2 import service_account
 from google.auth.transport.requests import AuthorizedSession
+import board
+import adafruit_bmp280
+# Sets up I2C for atomospheric pressure
+i2cbmp = board.I2C()
+sensor = adafruit_bmp280.Adafruit_BMP280_I2C(i2cbmp)
 
 
 db = "https://embedded-lab-2-part-2-default-rtdb.europe-west1.firebasedatabase.app/"
@@ -22,8 +27,6 @@ credentials = service_account.Credentials.from_service_account_file(keyfile, sco
 # Use the credentials object to authenticate a Requests session.
 authed_session = AuthorizedSession(credentials)
 
-bmp280_ADD = 0x11 #placehold for now. replace with value found on the pi
-bmp280_READ_PRESSURE = 0xF4 #also placehold
 si7021_ADD = 0x40
 si7021_READ_TEMPERATURE = 0xF3
 si7021_READ_HUMIDITY = 0xF5
@@ -36,7 +39,7 @@ cmd_meas_temp = smbus2.i2c_msg.write(si7021_ADD,[si7021_READ_TEMPERATURE])
 
 cmd_meas_humi = smbus2.i2c_msg.write(si7021_ADD,[si7021_READ_HUMIDITY])
 
-cmd_meas_pres = smbus2.i2c_msg.write(bmp280_ADD,[bmp280_READ_PRESSURE]) #placehold
+
 
 #Set up a read transaction that reads two bytes of data
 read_result = smbus2.i2c_msg.read(si7021_ADD,2)
@@ -48,6 +51,8 @@ totalAverageHumid = 0
 
 lastTemps = [None] * 60 #empty array
 lastHumid = [None] * 60
+
+
 
 def movingAverage():
     if (lastTemps == [None] * 60):
@@ -141,6 +146,9 @@ counter = 0
 try: 
     while (active):
 
+
+        print("Pressure = ", sensor.pressure)
+
         #Execute the two transactions with a small delay between them
         bus.i2c_rdwr(cmd_meas_temp)
         time.sleep(0.1)
@@ -160,15 +168,7 @@ try:
         rel_humidity = ((125 * humidity)/65536) - 6
         print("Humidity: ", rel_humidity)
 
-        bus.i2c_rdwr(cmd_meas_pres)
-        time.sleep(0.1)
-        bus.i2c_rdwr(read_result)
-
-        pressure = int.from_bytes(read_result.buf[0]+read_result.buf[1],'big')
-        rel_pressure = pressure #need to find the specs here. 
-        print("Pressure: " ,pressure)
-
-
+      
         time.sleep(2)
 
         lastTemps[counter%60] = celcius
