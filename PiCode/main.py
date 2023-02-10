@@ -11,7 +11,6 @@ si7021_READ_TEMPERATURE = 0xE3
 si7021_READ_HUMIDITY = 0xE5
 
 bus = smbus2.SMBus(1)
-start = 1
 
 #Set up a write transaction that sends the command to measure temperature
 cmd_meas_temp = smbus2.i2c_msg.write(si7021_ADD,[si7021_READ_TEMPERATURE])
@@ -20,11 +19,17 @@ cmd_meas_hum = smbus2.i2c_msg.write(si7021_ADD,[si7021_READ_HUMIDITY])
 read_result = smbus2.i2c_msg.read(si7021_ADD,2)
 
 
-while(start == 1):
+while(1):
     # reads atmospheric pressure data
     try:
         print('Temperature: {} degrees C'.format(sensor.temperature))
         print('Pressure: {}hPa'.format(sensor.pressure))
+        pressure = sensor.pressure
+        
+        path = "pressure.json"
+
+        data = {"pressure: ": pressure}
+        response = authed_session.post(db+path, json=data)
     # prints error
     except:
         print('bmp error')
@@ -41,6 +46,11 @@ while(start == 1):
     celcius = ((175.72 * temperature)/65536) - 46.85
     print("temperature", celcius)
     time.sleep(0.5)
+    
+    path1 = "temperature.json"
+
+    data = {"temperature: ": celcius}
+    response = authed_session.post(db+path1, json=data)
 
     bus.i2c_rdwr(cmd_meas_hum)
     time.sleep(0.1)
@@ -49,6 +59,17 @@ while(start == 1):
 
     humidity = int.from_bytes(read_result.buf[0]+read_result.buf[1],'big')
     percent_hum = ((125*humidity)/65536)-6
+    
+    path2 = "humidity.json"
+
+    data = {"Humidity: ": percent_hum}
+    response = authed_session.post(db+path2, json=data)
+
+    if response.ok:
+        print("Created new node named {}".format(response.json()["name"]))
+    else:
+       raise ConnectionError("Could not write to database: {}".format(response.text))
+
 
     print("relative humidity:", percent_hum)
-    time.sleep(0.5)
+    time.sleep(2)
