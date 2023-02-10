@@ -1,12 +1,29 @@
 import time
 import smbus2
+import random
+from google.oauth2 import service_account
+from google.auth.transport.requests import AuthorizedSession
 
 
-#Danger at various temps and humidities:
+db = "https://embedded-lab-2-part-2-default-rtdb.europe-west1.firebasedatabase.app/"
 
-#high temp + high humidity causes risk of heatstroke
-#low temp low humidity also dangerous
+# Define the private key file (change to use your private key)
+keyfile = "/home/pi/privkey.json"
 
+# Define the required scopes
+scopes = [
+    "https://www.googleapis.com/auth/userinfo.email",
+    "https://www.googleapis.com/auth/firebase.database"
+]
+
+# Authenticate a credential with the service account (change to use your private key)
+credentials = service_account.Credentials.from_service_account_file(keyfile, scopes=scopes)
+
+# Use the credentials object to authenticate a Requests session.
+authed_session = AuthorizedSession(credentials)
+
+bmp280_ADD = 0x11 #placehold for now. replace with value found on the pi
+bmp280_READ_PRESSURE = 0xF4 #also placehold
 si7021_ADD = 0x40
 si7021_READ_TEMPERATURE = 0xF3
 si7021_READ_HUMIDITY = 0xF5
@@ -18,6 +35,8 @@ bus = smbus2.SMBus(1)
 cmd_meas_temp = smbus2.i2c_msg.write(si7021_ADD,[si7021_READ_TEMPERATURE])
 
 cmd_meas_humi = smbus2.i2c_msg.write(si7021_ADD,[si7021_READ_HUMIDITY])
+
+cmd_meas_pres = smbus2.i2c_msg.write(bmp280_ADD,[bmp280_READ_PRESSURE]) #placehold
 
 #Set up a read transaction that reads two bytes of data
 read_result = smbus2.i2c_msg.read(si7021_ADD,2)
@@ -60,8 +79,6 @@ def humidMovingAverage():
         
 
 
-counter = 0
-
 #tuple definitions: moderate heat warning, dry conditions, moderate cold warning, ice warning
 messageTuple = {False, False, False, False}
 
@@ -73,7 +90,6 @@ def tupleUpdate():
     if humidMovingAverage() < 40 and movingAverage() > 30:
         messageTuple[0] = True
         messageTuple[1] = True
-
     else: 
         messageTuple[0] = False
         messageTuple[1] = False
@@ -83,13 +99,17 @@ def tupleUpdate():
 
     else: messageTuple[3] = False
 
-    if movingAverage < 0: 
+    if movingAverage < 1: 
         messageTuple[4] = True
 
     else: False
 
+
+
+
 def sendMessage(msg):
-    send = True #Placehold. 
+    global messageSend
+    messageSend = msg
 
 def ProcessTuple():
     messages = {"Hot weather alert, stay hydrated and use suncream. ", 
@@ -107,7 +127,8 @@ def ProcessTuple():
             sendMessage(messages[0])
             sendMessage(messages[2])
 
-        if messageTuple[0] and messageTuple[1]: sendMessage(messages[1])
+        if messageTuple[0] and messageTuple[1]: 
+            sendMessage(messages[1])
 
         if messageTuple[3]: 
             sendMessage(messages[3])
@@ -115,13 +136,11 @@ def ProcessTuple():
         if messageTuple[3] and messageTuple[4]:
             sendMessage[messages[4]]
 
-    
 
-
-
-
+counter = 0
 try: 
     while (active):
+
         #Execute the two transactions with a small delay between them
         bus.i2c_rdwr(cmd_meas_temp)
         time.sleep(0.1)
@@ -141,6 +160,15 @@ try:
         rel_humidity = ((125 * humidity)/65536) - 6
         print("Humidity: ", rel_humidity)
 
+        bus.i2c_rdwr(cmd_meas_pres)
+        time.sleep(0.1)
+        bus.i2c_rdwr(read_result)
+
+        pressure = int.from_bytes(read_result.buf[0]+read_result.buf[1],'big')
+        rel_pressure = pressure #need to find the specs here. 
+        print("Pressure: " ,pressure)
+
+
         time.sleep(2)
 
         lastTemps[counter%60] = celcius
@@ -149,10 +177,17 @@ try:
         print(movingAverage())
 
         totalAverageTemp = (totalAverageTemp*(counter) + celcius)/(counter+1)
-        
+
+        path = "temp_&_humidity.json"
+        data = {"Temperature: ": celcius, "Humidity: ": rel_humidity}
+        response = authed_session.post(db+path, json=data)
+
+        if response.ok:
+            print("Created new node named {}".format(response.json()["name"]))
+        else:
+            raise ConnectionError("Could not write to database: {}".format(response.text))
         # if counter == 10:
         #     #send data - Insert function here
-
 except KeyboardInterrupt:
     active = False
  
