@@ -1,5 +1,15 @@
 import time
 import smbus2
+import board
+import adafruit_bmp280
+i2cbmp = board.I2C()
+sensor = adafruit_bmp280.Adafruit_BMP280_I2C(i2cbmp)
+
+try:
+    print('Temperature: {} degrees C'.format(sensor.temperature))
+    print('Pressure: {}hPa'.format(sensor.pressure))
+except:
+    print('bmp error')
 
 si7021_ADD = 0x40
 si7021_READ_TEMPERATURE = 0xE3
