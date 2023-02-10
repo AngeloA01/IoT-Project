@@ -2,14 +2,9 @@ import time
 import smbus2
 import board
 import adafruit_bmp280
+# Sets up I2C for atomospheric pressure
 i2cbmp = board.I2C()
 sensor = adafruit_bmp280.Adafruit_BMP280_I2C(i2cbmp)
-
-try:
-    print('Temperature: {} degrees C'.format(sensor.temperature))
-    print('Pressure: {}hPa'.format(sensor.pressure))
-except:
-    print('bmp error')
 
 si7021_ADD = 0x40
 si7021_READ_TEMPERATURE = 0xE3
@@ -26,10 +21,19 @@ read_result = smbus2.i2c_msg.read(si7021_ADD,2)
 
 
 while(start == 1):
+    # reads atmospheric pressure data
+    try:
+        print('Temperature: {} degrees C'.format(sensor.temperature))
+        print('Pressure: {}hPa'.format(sensor.pressure))
+    # prints error
+    except:
+        print('bmp error')
+    time.sleep(0.5)
 
     #Execute the two transactions with a small delay between them
     bus.i2c_rdwr(cmd_meas_temp)
     time.sleep(0.1)
+
     bus.i2c_rdwr(read_result)
 
     #convert the result to an int
