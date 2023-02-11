@@ -3,8 +3,33 @@ import smbus2
 import board
 import adafruit_bmp280
 # Sets up I2C for atomospheric pressure
+import random
+from google.oauth2 import service_account
+from google.auth.transport.requests import AuthorizedSession
+√
 i2cbmp = board.I2C()
 sensor = adafruit_bmp280.Adafruit_BMP280_I2C(i2cbmp)
+
+#data base code________________---------------_____________----------______________-------------__________
+
+db = "https://embedded-lab-2-part-2-default-rtdb.europe-west1.firebasedatabase.app/"
+
+# Define the private key file (change to use your private key)
+keyfile = "/home/pi/privkey.json"
+
+# Define the required scopes
+scopes = [
+    "https://www.googleapis.com/auth/userinfo.email",
+    "https://www.googleapis.com/auth/firebase.database"
+]
+
+# Authenticate a credential with the service account (change to use your private key)
+credentials = service_account.Credentials.from_service_account_file(keyfile, scopes=scopes)
+
+# Use the credentials object to authenticate a Requests session.
+authed_session = AuthorizedSession(credentials)
+
+#data base code________________---------------_____________----------______________-------------__________
 
 si7021_ADD = 0x40
 si7021_READ_TEMPERATURE = 0xE3
