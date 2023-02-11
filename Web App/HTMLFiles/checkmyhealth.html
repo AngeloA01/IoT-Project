@@ -81,6 +81,7 @@
     </style>
     <body>
 
+        <div id = "result"></div>
         <div id = "side_menu" class= "sidemenu">
             <a style = "font-size:40px" href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <a style = "font-family: 'quicksandbold';" href="mainpage.html">Home</a>
@@ -96,9 +97,6 @@
         <strong></strong><h1 style = "color: rgb(255, 178, 123);font-size: 450%; font-family: quicksandbold; text-align: center;
          position:relative; top:60px; left:0px;" class = "text_shadow">HealthEE</strong></h1>
 
-
-    <input type="text" id="email">
-    <button id = "send">Send</button>
         
     <script>
         function openNav() {
@@ -116,6 +114,14 @@
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js"></script>
 
     <script>
+        async function getResult() {
+        const response = await fetch("http://127.0.0.1:5000/");
+        const result = await response.json();
+        document.getElementById("result").innerHTML = result;
+        }
+    </script>
+
+    <!-- <script>
        
 
         var firebaseConfig = {
@@ -137,6 +143,10 @@
         })
 
 
-    </script>
+    </script> -->
+   
+<!-- 
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script> -->
     </body>
 </html>
