@@ -1,10 +1,5 @@
 import time
 import smbus2
-<<<<<<< HEAD
-import time,random
-from google.oauth2 import service_account
-from google.auth.transport.requests import AuthorizedSession
-=======
 import random
 from google.oauth2 import service_account
 from google.auth.transport.requests import AuthorizedSession
@@ -14,7 +9,6 @@ import adafruit_bmp280
 i2cbmp = board.I2C()
 sensor = adafruit_bmp280.Adafruit_BMP280_I2C(i2cbmp)
 
->>>>>>> dd937f7ca44d6f4ff5460aec44d53fc3950b381e
 
 db = "https://embedded-lab-2-part-2-default-rtdb.europe-west1.firebasedatabase.app/"
 
@@ -26,15 +20,12 @@ scopes = [
     "https://www.googleapis.com/auth/userinfo.email",
     "https://www.googleapis.com/auth/firebase.database"
 ]
-<<<<<<< HEAD
-=======
 
 # Authenticate a credential with the service account (change to use your private key)
 credentials = service_account.Credentials.from_service_account_file(keyfile, scopes=scopes)
 
 # Use the credentials object to authenticate a Requests session.
 authed_session = AuthorizedSession(credentials)
->>>>>>> dd937f7ca44d6f4ff5460aec44d53fc3950b381e
 
 si7021_ADD = 0x40
 si7021_READ_TEMPERATURE = 0xF3
@@ -55,13 +46,6 @@ read_result = smbus2.i2c_msg.read(si7021_ADD,2)
 
 active = True
 
-<<<<<<< HEAD
-# Authenticate a credential with the service account (change to use your private key)
-credentials = service_account.Credentials.from_service_account_file(keyfile, scopes=scopes)
-
-# Use the credentials object to authenticate a Requests session.
-authed_session = AuthorizedSession(credentials)
-=======
 totalAverageTemp = 0
 totalAverageHumid = 0
 
@@ -122,7 +106,6 @@ def tupleUpdate():
 
     if movingAverage < 1: 
         messageTuple[4] = True
->>>>>>> dd937f7ca44d6f4ff5460aec44d53fc3950b381e
 
     else: False
 
@@ -184,14 +167,6 @@ try:
         humidity = int.from_bytes(read_result.buf[0]+read_result.buf[1],'big')
         rel_humidity = ((125 * humidity)/65536) - 6
         print("Humidity: ", rel_humidity)
-        response = authed_session.post(db+path, json=data)
-
-        if response.ok:
-            print("Created new node named {}".format(response.json()["name"]))
-        else:
-            raise ConnectionError("Could not write to database: {}".format(response.text))
-
-        data = {"Temperature: ": celcius, "Humidity: ": rel_humidity}
 
       
         time.sleep(2)
@@ -203,16 +178,16 @@ try:
 
         totalAverageTemp = (totalAverageTemp*(counter) + celcius)/(counter+1)
 
-        path = "temp_&_humidity.json"
-        data = {"Temperature: ": celcius, "Humidity: ": rel_humidity}
-        response = authed_session.post(db+path, json=data)
+        # path = "temp_&_humidity.json"
+        # data = {"Temperature: ": celcius, "Humidity: ": rel_humidity}
+        # response = authed_session.post(db+path, json=data)
 
-        if response.ok:
-            print("Created new node named {}".format(response.json()["name"]))
-        else:
-            raise ConnectionError("Could not write to database: {}".format(response.text))
-        # if counter == 10:
-        #     #send data - Insert function here
+        # if response.ok:
+        #     print("Created new node named {}".format(response.json()["name"]))
+        # else:
+        #     raise ConnectionError("Could not write to database: {}".format(response.text))
+        # # if counter == 10:
+        # #     #send data - Insert function here
 except KeyboardInterrupt:
     active = False
  
