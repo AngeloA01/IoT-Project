@@ -11,7 +11,7 @@ import RPi.GPIO as GPIO
 BUTTONPIN = 11
 
 GPIO.setwarnings(False) 
-GPIO.setmode(GPIO.BOARD)
+#GPIO.setmode(GPIO.BOARD)
 GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #pin 17
 
 
