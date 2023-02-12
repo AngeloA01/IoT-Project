@@ -5,6 +5,17 @@ from google.oauth2 import service_account
 from google.auth.transport.requests import AuthorizedSession
 import board
 import adafruit_bmp280
+import RPi.GPIO as GPIO
+
+#GPIO setup for button
+BUTTONPIN = 17
+
+GPIO.setwarnings(False) 
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #pin 17
+
+
+
 # Sets up I2C for atomospheric pressure
 i2cbmp = board.I2C()
 sensor = adafruit_bmp280.Adafruit_BMP280_I2C(i2cbmp)
@@ -177,6 +188,9 @@ try:
         print(movingAverage())
 
         totalAverageTemp = (totalAverageTemp*(counter) + celcius)/(counter+1)
+
+        if GPIO.input(BUTTONPIN) == GPIO.HIGH:
+            print("Button Pushed")
 
         # path = "temp_&_humidity.json"
         # data = {"Temperature: ": celcius, "Humidity: ": rel_humidity}
