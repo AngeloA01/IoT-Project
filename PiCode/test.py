@@ -61,10 +61,10 @@ def movingAverage():
         measured = 0
         runningSum = 0
         for x in range(0,60):
-            if (lastTemps[x] != [None]):
+            if (lastTemps[x] != None):
                 runningSum += lastTemps[x]
                 measured += 1
-            elif lastTemps[x] == [None]:
+            elif lastTemps[x] == None:
                 average = runningSum/measured
                 return average
         
