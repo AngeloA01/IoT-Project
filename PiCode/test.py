@@ -8,11 +8,11 @@ import adafruit_bmp280
 import RPi.GPIO as GPIO
 
 #GPIO setup for button
-BUTTONPIN = 10
+# BUTTONPIN = 10
 
-GPIO.setwarnings(False) 
-GPIO.setmode(GPIO.BOARD)
-GPIO.setup(BUTTONPIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #pin 17
+# GPIO.setwarnings(False) 
+# GPIO.setmode(GPIO.BOARD)
+# GPIO.setup(BUTTONPIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #pin 17
 
 
 
@@ -62,6 +62,7 @@ totalAverageHumid = 0
 
 lastTemps = [None] * 60 #empty array
 lastHumid = [None] * 60
+lastPress = [None] * 60
 
 
 
@@ -86,10 +87,25 @@ def humidMovingAverage():
         measured = 0
         runningSum = 0
         for x in range(0,60):
-            if (lastHumid[x] != [None]):
+            if (lastHumid[x] != None):
                 runningSum += lastHumid[x]
                 measured += 1
-            elif lastHumid[x] == [None]:
+            elif lastHumid[x] == None:
+                average = runningSum/measured
+                return average
+
+
+def pressureMovingAverage():
+    if (lastPress == [None] * 60):
+        return False
+    else:
+        measured = 0
+        runningSum = 0
+        for x in range(0,60):
+            if (lastPress[x] != None):
+                runningSum += lastPress[x]
+                measured += 1
+            elif lastPress[x] == None:
                 average = runningSum/measured
                 return average
         
@@ -158,7 +174,7 @@ try:
     while (active):
 
 
-        print("Pressure = ", sensor.pressure)
+       # print("Pressure, hPa= ", sensor.pressure)
 
         #Execute the two transactions with a small delay between them
         bus.i2c_rdwr(cmd_meas_temp)
@@ -168,7 +184,7 @@ try:
         #convert the result to an int
         temperature = int.from_bytes(read_result.buf[0]+read_result.buf[1],'big')
         celcius = ((175.72 * temperature)/65536) - 46.85
-        print("Temperature: ", celcius)
+        #print("Temperature, C: ", celcius)
 
         bus.i2c_rdwr(cmd_meas_humi)
         time.sleep(0.1)
@@ -177,20 +193,22 @@ try:
         #convert the result to an int
         humidity = int.from_bytes(read_result.buf[0]+read_result.buf[1],'big')
         rel_humidity = ((125 * humidity)/65536) - 6
-        print("Humidity: ", rel_humidity)
+       # print("Humidity, relative: ", rel_humidity)
 
       
         time.sleep(2)
 
         lastTemps[counter%60] = celcius
         lastHumid[counter%60] = rel_humidity
+        lastPress[counter%60] = sensor.pressure
         counter += 1
-        print(movingAverage())
+        print("Temperature Moving Average: ", movingAverage())
+        print("Humidity Moving Average   : ", humidMovingAverage())
+        print("Pressure Moving Average   : ", pressureMovingAverage())
 
         totalAverageTemp = (totalAverageTemp*(counter) + celcius)/(counter+1)
 
-        if GPIO.input(BUTTONPIN) == GPIO.HIGH:
-            print("Button Pushed")
+        
 
         # path = "temp_&_humidity.json"
         # data = {"Temperature: ": celcius, "Humidity: ": rel_humidity}
