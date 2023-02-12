@@ -8,7 +8,7 @@
     <style>
         body {
             background:linear-gradient(
-                to right, #f5502b, #f5792b, #f5502b
+                to right, #f96868,#f89f9f,#f96868
             );
         }
         @font-face {
@@ -80,8 +80,6 @@
 
     </style>
     <body>
-
-        <div id = "result"></div>
         <div id = "side_menu" class= "sidemenu">
             <a style = "font-size:40px" href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <a style = "font-family: 'quicksandbold';" href="mainpage.html">Home</a>
@@ -120,33 +118,11 @@
         document.getElementById("result").innerHTML = result;
         }
     </script>
-
-    <!-- <script>
-       
-
-        var firebaseConfig = {
-            apiKey: "AIzaSyAz1R9Y4rgIUDR4TINqXvG2BbjZGzlWbXs",
-            authDomain: "embedded-lab-2-part-2.firebaseapp.com",
-            databaseURL: "https://embedded-lab-2-part-2.firebaseio.com",
-            projectId: "embedded-lab-2-part-2",
-            storageBucket: "embedded-lab-2-part-2.appspot.com",
-            messagingSenderId: "164614426559",
-            appId: "1:164614426559:web:cf7044cee5ca58327adb0a",
-            measurementId: "G-FNKN7NGVYY"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        var firebaseRef = firebase.database().ref('emails');
-        document.querySelector('#send').addEventListener('click', ()=>{
-            const email = document.getElementById('email').value;
-            firebaseRef.update(email);
-        })
-
-
-    </script> -->
-   
-<!-- 
-    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
-    <script defer src="https://pyscript.net/latest/pyscript.js"></script> -->
+      
     </body>
+
+    <body>
+        <div id="result" style="top:100px"></div>
+    </body>
+    
 </html>

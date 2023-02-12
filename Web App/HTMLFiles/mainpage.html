@@ -122,14 +122,11 @@
             document.getElementById("main").style.marginLeft = "0";
         }
         </script>
+    
+    
+
     <script type="module">
-        // function updatesensordata(postElement, data) {
-        // document.getElementById("sensor-data").innerHTML = data;
-        // }
-        // onValue(get_sensor_data, (snapshot) => {
-        //     const data = snapshot.val();
-        //     updatesensordata(postElement, data);
-        // });
+     
         import { initializeApp } from 'firebase/app';
         import { getDatabase, ref, set } from 'firebase/database';
 
@@ -145,16 +142,7 @@
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
-
-        //read data
-        let obj = {
-            Name: 'aryan',
-        };
-        firebase.database().ref('users/user1').set(obj);
-
-
     </script>
 
-    <script src = "initialize.js"></script>
     </body>
 </html>

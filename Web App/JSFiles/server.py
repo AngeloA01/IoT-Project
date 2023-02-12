@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    result = read_temp_data.run()
+    result = read_temp_data.get_pressure()
     return jsonify(result)
 
 if __name__ == "__main__":
