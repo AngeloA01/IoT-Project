@@ -8,10 +8,10 @@ import adafruit_bmp280
 import RPi.GPIO as GPIO
 
 #GPIO setup for button
-BUTTONPIN = 10
+BUTTONPIN = 15
 
 GPIO.setwarnings(False) 
-#GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BOARD)
 GPIO.setup(BUTTONPIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #pin 17
 
 
