@@ -21,17 +21,17 @@ while (j<len(c1)):
     # print(d1)
     j+=1
 
-    def get_pressure():
-        response3 = requests.get(db+"/pressure/.json")
-        pressure = response3.json()
-        pressure_list = list(pressure.values())
+    def get_temperature():
+        response3 = requests.get(db+"/temperature/.json")
+        temperature = response3.json()
+        temp_list = list(temperature.values())
         k=0
         sum=0
-        while (k<len(pressure_list)):
-            p = pressure_list[k]
-            p1 = p["pressure: "]
+        while (k<len(temp_list)):
+            p = temp_list[k]
+            p1 = p["temperature: "]
             sum = sum + p1
             k+=1
         avg = sum/k
-        return avg
+        return round(avg, 1)
 print(get_temperature())

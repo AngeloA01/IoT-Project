@@ -13,13 +13,13 @@
         }
         @font-face {
             font-family: 'quicksandbold';
-            src: url(/static/Quicksand_Bold.otf);
+            src:url(/static/Quicksand_Bold.otf/);
             font-style: oblique;
             font-weight:100;
         }
         @font-face {
             font-family: 'quicksandlight';
-            src: url(Quicksand_Light.otf);
+            src: url(/static/Quicksand_Light.otf/);
             font-style: oblique;
             font-weight:100;
         }
@@ -62,7 +62,7 @@
             cursor: pointer;
             background-color:rgb(152, 36, 7);
             color: rgb(255, 202, 133);
-
+            border-radius: 8px;
             padding: 10px 15px;
             border: none;
         }
@@ -92,6 +92,7 @@
             <button class="openbtn" onclick="openNav()" style = "font-family: 'quicksandbold';">&#9776; Menu</button>
         </div>
 
+        <h1 style="font-family: 'quicksandbold'; text-align:center; top:240px;position: relative">Click the button below to learn how to stay healthy in these conditions!</h1>
 
         
     <script>
@@ -107,17 +108,24 @@
     </script>
 
     <script>
-        async function getResult() {
         const response = await fetch("http://127.0.0.1:8000/");
         const result = await response.json();
         document.getElementById("result").innerHTML = JSON.stringify(result)
-        }
+    </script>
+    <script>
+        const response1 = await fetch("http://127.0.0.1:8000/pressure");
+        const result1 = await response.json();
+        document.getElementById("humidity").innerHTML = JSON.stringify(result1)
     </script>
 
     </body>
 
     <body>
-        <div id="result", style = "top:100px; left:400px; position: relative">{{result}}</div>
+        <div id="result", style = "color:rgb(152, 36, 7);font-family:'quicksandbold';font-size:130%; top:110px; text-align: center;
+        position: relative">The temperature is currently {{result}} degrees Celsius in London, UK</div>
+
+        <div id="humidity", style = "color:rgb(152, 36, 7);font-family:'quicksandbold';font-size:130%; top:250px; text-align: center;
+        position: relative">The humidity is currently {{humidity}} percent in London, UK</div>
     </body>
 
 </html>
