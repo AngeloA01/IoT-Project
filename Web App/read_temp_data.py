@@ -34,4 +34,4 @@ while (j<len(c1)):
             k+=1
         avg = sum/k
         return avg
-print(get_pressure())
+print(get_temperature())

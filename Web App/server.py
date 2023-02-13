@@ -6,8 +6,7 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     result = read_temp_data.get_pressure()
-    result1 = jsonify(result)
-    return render_template('checkmyhealth.html', result = result1)
+    return render_template('checkmyhealth.html', result = result)
 
 @app.route("/mainpage")
 def mainpage():

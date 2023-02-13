@@ -92,8 +92,6 @@
             <button class="openbtn" onclick="openNav()" style = "font-family: 'quicksandbold';">&#9776; Menu</button>
         </div>
 
-        <strong></strong><h1 style = "color: rgb(255, 178, 123);font-size: 450%; font-family: quicksandbold; text-align: center;
-         position:relative; top:60px; left:0px;" class = "text_shadow">HealthEE</strong></h1>
 
         
     <script>
@@ -108,18 +106,18 @@
         }
     </script>
 
-    </body>
-    <body onload="getResult()">
-        <div id="result"></div>
-    </body>
-
     <script>
         async function getResult() {
         const response = await fetch("http://127.0.0.1:8000/");
-        const result = await response.text();
-        document.getElementById("result").innerHTML = result;
+        const result = await response.json();
+        document.getElementById("result").innerHTML = JSON.stringify(result)
         }
     </script>
 
+    </body>
+
+    <body>
+        <div id="result", style = "top:100px; left:400px; position: relative">{{result}}</div>
+    </body>
 
 </html>
