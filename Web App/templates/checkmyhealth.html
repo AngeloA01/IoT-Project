@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html>
     <head>
         <title>
@@ -108,21 +108,18 @@
         }
     </script>
 
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js"></script>
+    </body>
+    <body onload="getResult()">
+        <div id="result"></div>
+    </body>
 
     <script>
         async function getResult() {
-        const response = await fetch("http://127.0.0.1:5000/");
+        const response = await fetch("http://146.169.238.122:8000/");
         const result = await response.json();
         document.getElementById("result").innerHTML = result;
         }
     </script>
-      
-    </body>
 
-    <body>
-        <div id="result" style="top:100px"></div>
-    </body>
-    
+
 </html>
