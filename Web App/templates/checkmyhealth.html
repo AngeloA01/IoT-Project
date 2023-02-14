@@ -111,23 +111,18 @@
          left:600px">Give me advice!</button>
 
     <script>
-        const response = await fetch("http://127.0.0.1:8000/");
-        const tempresult = await response.json();
-        document.getElementById("result").innerHTML = JSON.stringify(tempresult)
-        temperature_result = JSON.stringify(tempresult)
-    </script>
-    
-    <script>
+        temp_obj = JSON.parse(temperature_result)
+        
         res=["It's quite hot in here, be careful you don't get dehydrated","Wear sunscreen"]
         function cater_advice(advices, temp, pres, hum) {
-            if (parseInt(temp)>15){
-                return advices[0]}
-            else{
-                return advices[1]
+            if (temp > 15) {
+                return advices[0];
+            } else {
+                return advices[1];
             }
         }
         function display_info(){
-            document.getElementById("advice").innerHTML = "It's quite warm outside. You should drink some water";
+            document.getElementById("advice").innerHTML = "It's quite warm outside. You should drink some water.";
         }
         function openNav() {
             document.getElementById("side_menu").style.width = "250px";
@@ -140,6 +135,13 @@
         }
     </script>
     
+    <script>
+        const response = await fetch("http://127.0.0.1:8000/");
+        const tempresult = await response.json();
+        document.getElementById("result").innerHTML = JSON.stringify(tempresult)
+        temperature_result = JSON.stringify(tempresult)
+    </script>
+
     <script>
         const response1 = await fetch("http://127.0.0.1:8000/humidity/");
         const result1 = await response1.json();
@@ -154,7 +156,7 @@
         pressure_result = JSON.stringify(press_result)
     </script>
 
-    <div id = "advice" style = "position:relative; top:320px; left:660px;"></div>
+    <div id = "advice" style = "position:relative; text-align: center; top:300px"></div>
 
     </body>
 
