@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html>
     <head>
         <title>
@@ -106,13 +106,13 @@
         <h1 style="font-family: 'quicksandbold'; font-size:180%; text-align:center;
          top:60px; position: relative">Click the button below to learn how to stay healthy in these conditions!</h1>
 
-        <button class = "btn temp" onclick = "display_info"
-         style = "font-family: 'quicksandbold'; font-size:130% ;position: relative; top:340px; left:600px">Give me advice!</button>
+        <button class = "btn temp" onclick = "display_info()"
+         style = "font-family: 'quicksandbold'; font-size:130% ;position: relative; top:280px; left:600px">Give me advice!</button>
 
         
     <script>
         function display_info(){
-
+            document.getElementById("advice") = Date();
         }
         function openNav() {
             document.getElementById("side_menu").style.width = "250px";
@@ -142,6 +142,8 @@
         const press_result = await response2.json();
         document.getElementById("pressure)".innerHTML = JSON.stringify(press_result))
     </script>
+
+    <p id = "advice"></p>
 
     </body>
 
