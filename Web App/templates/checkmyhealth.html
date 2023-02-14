@@ -107,12 +107,22 @@
          top:60px; position: relative">Click the button below to learn how to stay healthy in these conditions!</h1>
 
         <button class = "btn temp" onclick = "display_info()"
-         style = "font-family: 'quicksandbold'; font-size:130% ;position: relative; top:280px; left:600px">Give me advice!</button>
+         style = "font-family: 'quicksandbold'; font-size:130% ;position: relative; top:260px;
+         left:600px">Give me advice!</button>
 
-        
     <script>
+        temp_obj = JSON.parse(temperature_result)
+        
+        res=["It's quite hot in here, be careful you don't get dehydrated","Wear sunscreen"]
+        function cater_advice(advices, temp, pres, hum) {
+            if (temp > 15) {
+                return advices[0];
+            } else {
+                return advices[1];
+            }
+        }
         function display_info(){
-            document.getElementById("advice") = Date();
+            document.getElementById("advice").innerHTML = "It's quite warm outside. You should drink some water.";
         }
         function openNav() {
             document.getElementById("side_menu").style.width = "250px";
@@ -124,26 +134,29 @@
             document.getElementById("main").style.marginLeft = "0";
         }
     </script>
-
+    
     <script>
         const response = await fetch("http://127.0.0.1:8000/");
-        const result = await response.json();
-        document.getElementById("result").innerHTML = JSON.stringify(result)
+        const tempresult = await response.json();
+        document.getElementById("result").innerHTML = JSON.stringify(tempresult)
+        temperature_result = JSON.stringify(tempresult)
     </script>
-    
+
     <script>
         const response1 = await fetch("http://127.0.0.1:8000/humidity/");
         const result1 = await response1.json();
-        document.getElementById("humidity").innerHTML = JSON.stringify(result1)
+        document.getElementById("humidity").innerHTML, hum_result = JSON.stringify(result1)
+        hum_result = JSON.stringify(result1)
     </script>
 
     <script>
         const response2 = await fetch("http://127.0.0.1:8000/pressure");
         const press_result = await response2.json();
         document.getElementById("pressure)".innerHTML = JSON.stringify(press_result))
+        pressure_result = JSON.stringify(press_result)
     </script>
 
-    <p id = "advice"></p>
+    <div id = "advice" style = "position:relative; text-align: center; top:300px"></div>
 
     </body>
 
