@@ -37,7 +37,8 @@
             z-index: 1;
             top:0;
             left:0;
-            background-color: royalblue;
+            background: linear-gradient(
+                to right, royalblue, #f97b7b);
             overflow-x:auto;
             padding-top: 60px;
             transition: 0.7s
@@ -77,20 +78,31 @@
             .sidebar {padding-top: 15px;}
             .sidebar a {font-size: 18px;}
         }
+        .btn {
+            border:none;
+            color:white;
+            padding: 14px 28px;
+            cursor: pointer;
+        }
+        .temp {background-color: crimson;}
+        .temp:hover {background-color:#f89f9f;}
 
     </style>
+
     <body>
         <div id = "side_menu" class= "sidemenu">
             <a style = "font-size:40px" href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a style = "font-family: 'quicksandbold';" href="mainpage.html">Home</a>
-            <a style = "font-family: 'quicksandbold';" href="checkmyhealth.html">Check my health!</a>
-            <a style = "font-family: 'quicksandbold';" href="howitworks.html">How it works</a>
-            <a style = "font-family: 'quicksandbold';" href="about.html">About</a>
+            <a style = "font-family: 'quicksandbold'; color: rgb(20, 0, 72);" href="mainpage.html">Home</a>
+            <a style = "font-family: 'quicksandbold'; color:rgb(20, 0, 72)" href="checkmyhealth.html">Check my health!</a>
+            <a style = "font-family: 'quicksandbold'; color:rgb(20, 0, 72)" href="howitworks.html">How it works</a>
+            <a style = "font-family: 'quicksandbold'; color:rgb(20, 0, 72)" href="about.html">About</a>
         </div>
 
         <div id="main">
             <button class="openbtn" onclick="openNav()" style = "font-family: 'quicksandbold';">&#9776; Menu</button>
         </div>
+
+        <button class = "btn temp" style = "position: relative; ">Temperature</button>
 
         <h1 style="font-family: 'quicksandbold'; text-align:center; top:240px;position: relative">Click the button below to learn how to stay healthy in these conditions!</h1>
 
@@ -119,6 +131,12 @@
         document.getElementById("humidity").innerHTML = JSON.stringify(result1)
     </script>
 
+    <script>
+        const response2 = await fetch("http://127.0.0.1:8000/pressure");
+        const press_result = await response2.json();
+        document.getElementById("pressure)".innerHTML = JSON.stringify(press_result))
+    </script>
+
     </body>
 
     <body>
@@ -127,6 +145,9 @@
 
         <div id="humidity", style = "color:rgb(152, 36, 7);font-family:'quicksandbold';font-size:130%; top:250px; text-align: center;
         position: relative">The humidity is {{hum_result}} percent currently.</div>
+
+        <div id="pressure", style = "color:rgb(152, 36, 7);font-family:'quicksandbold';font-size:130%; top:250px; text-align: center;
+        position: relative">The pressure is {{press_result}} hPa currently.</div>
     </body>
 
 </html>

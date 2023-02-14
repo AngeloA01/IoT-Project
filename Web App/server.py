@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-import read_temp_data, read_humidity
+import read_temp_data, read_humidity, read_pressure
 
 app = Flask(__name__)
 # @app.route("/")
@@ -10,7 +10,8 @@ app = Flask(__name__)
 def get_data():
     temp = read_temp_data.get_temperature()
     humidity = read_humidity.get_humidity()
-    return render_template('checkmyhealth.html', temp_result=temp, hum_result=humidity)
+    pressure = read_pressure.get_pressure()
+    return render_template('checkmyhealth.html', temp_result=temp, hum_result=humidity, press_result=pressure)
 
 
 @app.route("/mainpage")
