@@ -11,19 +11,9 @@ while (i<len(b1)):
     i+=1
     # print(s1)
 
-response2 = requests.get(db+"/humidity/.json")
-c = response2.json()
-c1 = list(c.values())
-j=0
-while (j<len(c1)):
-    d = c1[j]
-    d1 = d["Humidity: "]
-    # print(d1)
-    j+=1
-
     def get_temperature():
-        response3 = requests.get(db+"/temperature/.json")
-        temperature = response3.json()
+        response = requests.get(db+"/temperature/.json")
+        temperature = response.json()
         temp_list = list(temperature.values())
         k=0
         sum=0

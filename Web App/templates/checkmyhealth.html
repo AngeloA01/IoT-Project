@@ -112,9 +112,10 @@
         const result = await response.json();
         document.getElementById("result").innerHTML = JSON.stringify(result)
     </script>
+    
     <script>
-        const response1 = await fetch("http://127.0.0.1:8000/pressure");
-        const result1 = await response.json();
+        const response1 = await fetch("http://127.0.0.1:8000/humidity/");
+        const result1 = await response1.json();
         document.getElementById("humidity").innerHTML = JSON.stringify(result1)
     </script>
 
@@ -122,10 +123,10 @@
 
     <body>
         <div id="result", style = "color:rgb(152, 36, 7);font-family:'quicksandbold';font-size:130%; top:110px; text-align: center;
-        position: relative">The temperature is currently {{result}} degrees Celsius in London, UK</div>
+        position: relative">The temperature is currently {{temp_result}} degrees Celsius</div>
 
         <div id="humidity", style = "color:rgb(152, 36, 7);font-family:'quicksandbold';font-size:130%; top:250px; text-align: center;
-        position: relative">The humidity is currently {{humidity}} percent in London, UK</div>
+        position: relative">The humidity is {{hum_result}} percent currently.</div>
     </body>
 
 </html>
