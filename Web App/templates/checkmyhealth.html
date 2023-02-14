@@ -81,11 +81,12 @@
         .btn {
             border:none;
             color:white;
-            padding: 14px 28px;
+            padding: 17px 34px;
             cursor: pointer;
+            border-radius: 16px;
         }
         .temp {background-color: crimson;}
-        .temp:hover {background-color:#f89f9f;}
+        .temp:hover {background-color:#920000;}
 
     </style>
 
@@ -102,12 +103,17 @@
             <button class="openbtn" onclick="openNav()" style = "font-family: 'quicksandbold';">&#9776; Menu</button>
         </div>
 
-        <button class = "btn temp" style = "position: relative; ">Temperature</button>
+        <h1 style="font-family: 'quicksandbold'; font-size:180%; text-align:center;
+         top:60px; position: relative">Click the button below to learn how to stay healthy in these conditions!</h1>
 
-        <h1 style="font-family: 'quicksandbold'; text-align:center; top:240px;position: relative">Click the button below to learn how to stay healthy in these conditions!</h1>
+        <button class = "btn temp" onclick = "display_info"
+         style = "font-family: 'quicksandbold'; font-size:130% ;position: relative; top:340px; left:600px">Give me advice!</button>
 
         
     <script>
+        function display_info(){
+
+        }
         function openNav() {
             document.getElementById("side_menu").style.width = "250px";
             document.getElementById("main").style.marginLeft = "250px";
@@ -140,14 +146,14 @@
     </body>
 
     <body>
-        <div id="result", style = "color:rgb(152, 36, 7);font-family:'quicksandbold';font-size:130%; top:110px; text-align: center;
+        <div id="result", style = "color:rgb(152, 36, 7);font-family:'quicksandbold'; font-size:130%; top:90px; text-align: center;
         position: relative">The temperature is currently {{temp_result}} degrees Celsius</div>
 
-        <div id="humidity", style = "color:rgb(152, 36, 7);font-family:'quicksandbold';font-size:130%; top:250px; text-align: center;
-        position: relative">The humidity is {{hum_result}} percent currently.</div>
+        <div id="humidity", style = "color:rgb(152, 36, 7);font-family:'quicksandbold'; font-size:130%; top:100px; text-align: center;
+        position: relative">The humidity is currently {{hum_result}} percent.</div>
 
-        <div id="pressure", style = "color:rgb(152, 36, 7);font-family:'quicksandbold';font-size:130%; top:250px; text-align: center;
-        position: relative">The pressure is {{press_result}} hPa currently.</div>
+        <div id="pressure", style = "color:rgb(152, 36, 7);font-family:'quicksandbold'; font-size:130%; top:110px; text-align: center;
+        position: relative">The pressure is currently {{press_result}} hPa.</div>
     </body>
 
 </html>
