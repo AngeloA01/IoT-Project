@@ -13,10 +13,21 @@ def get_data():
     pressure = read_pressure.get_pressure()
     return render_template('checkmyhealth.html', temp_result=temp, hum_result=humidity, press_result=pressure)
 
-
-@app.route("/mainpage")
+@app.route("/howitworks.html")
 def mainpage():
+    return render_template('howitworks.html')
+
+@app.route("/checkmyhealth.html")
+def secondpage():
+    return render_template('checkmyhealth.html')
+
+@app.route("/mainpage.html")
+def thirdpage():
     return render_template('mainpage.html')
+
+@app.route("/about.html")
+def fourthpage():
+    return render_template('about.html')
 
 
 if __name__ == "__main__":
