@@ -19,7 +19,10 @@ def mainpage():
 
 @app.route("/checkmyhealth.html")
 def secondpage():
-    return render_template('checkmyhealth.html')
+    temp = read_temp_data.get_temperature()
+    humidity = read_humidity.get_humidity()
+    pressure = read_pressure.get_pressure()
+    return render_template('checkmyhealth.html', temp_result=temp, hum_result=humidity, press_result=pressure)
 
 @app.route("/mainpage.html")
 def thirdpage():
