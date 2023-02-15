@@ -89,48 +89,48 @@ def movingAverageGeneral(array):
 
 
 
-def movingAverage():
-    if (lastTemps == [None] * 60):
-        return False
-    else:
-        measured = 0
-        runningSum = 0
-        for x in range(0,60):
-            if (lastTemps[x] != None):
-                runningSum += lastTemps[x]
-                measured += 1
-            elif lastTemps[x] == None:
-                average = runningSum/measured
-                return average
+# def movingAverage():
+#     if (lastTemps == [None] * 60):
+#         return False
+#     else:
+#         measured = 0
+#         runningSum = 0
+#         for x in range(0,60):
+#             if (lastTemps[x] != None):
+#                 runningSum += lastTemps[x]
+#                 measured += 1
+#             elif lastTemps[x] == None:
+#                 average = runningSum/measured
+#                 return average
         
-def humidMovingAverage():
-    if (lastHumid == [None] * 60):
-        return False
-    else:
-        measured = 0
-        runningSum = 0
-        for x in range(0,60):
-            if (lastHumid[x] != None):
-                runningSum += lastHumid[x]
-                measured += 1
-            elif lastHumid[x] == None:
-                average = runningSum/measured
-                return average
+# def humidMovingAverage():
+#     if (lastHumid == [None] * 60):
+#         return False
+#     else:
+#         measured = 0
+#         runningSum = 0
+#         for x in range(0,60):
+#             if (lastHumid[x] != None):
+#                 runningSum += lastHumid[x]
+#                 measured += 1
+#             elif lastHumid[x] == None:
+#                 average = runningSum/measured
+#                 return average
 
 
-def pressureMovingAverage():
-    if (lastPress == [None] * 60):
-        return False
-    else:
-        measured = 0
-        runningSum = 0
-        for x in range(0,60):
-            if (lastPress[x] != None):
-                runningSum += lastPress[x]
-                measured += 1
-            elif lastPress[x] == None:
-                average = runningSum/measured
-                return average
+# def pressureMovingAverage():
+#     if (lastPress == [None] * 60):
+#         return False
+#     else:
+#         measured = 0
+#         runningSum = 0
+#         for x in range(0,60):
+#             if (lastPress[x] != None):
+#                 runningSum += lastPress[x]
+#                 measured += 1
+#             elif lastPress[x] == None:
+#                 average = runningSum/measured
+#                 return average
         
 
 
