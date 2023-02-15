@@ -196,7 +196,11 @@ try:
         #convert the result to an int
         humidity = int.from_bytes(read_result.buf[0]+read_result.buf[1],'big')
         rel_humidity = ((125 * humidity)/65536) - 6
-       # print("Humidity, relative: ", rel_humidity)
+        #print("Humidity, relative: ", rel_humidity)
+
+        time.sleep(0.1)
+
+        ccs.readData()
 
       
         time.sleep(2)
@@ -210,7 +214,7 @@ try:
         print("Pressure Moving Average   : ", pressureMovingAverage())
 
         print("CO2 : ", ccs.geteCO2())
-        print("TVOC: ", ccs.getTVOC)
+        print("TVOC: ", ccs.getTVOC())
 
         totalAverageTemp = (totalAverageTemp*(counter) + celcius)/(counter+1)
 
