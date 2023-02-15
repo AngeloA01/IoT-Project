@@ -242,7 +242,7 @@ try:
 
         totalAverageTemp = (totalAverageTemp*(counter) + celcius)/(counter+1)
 
-        if (counter > 60): counter = 0
+        if (counter == 60): counter = 0
 
         # path = "temp_&_humidity.json"
         # data = {"Temperature: ": celcius, "Humidity: ": rel_humidity}
