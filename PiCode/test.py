@@ -7,6 +7,12 @@ import board
 import adafruit_bmp280
 import RPi.GPIO as GPIO
 
+from Adafruit_CCS811 import Adafruit_CCS811
+
+
+ccs =  Adafruit_CCS811()
+
+
 #GPIO setup for button
 # BUTTONPIN = 10
 
@@ -136,9 +142,6 @@ def tupleUpdate():
 
     else: False
 
-
-
-
 def sendMessage(msg):
     global messageSend
     messageSend = msg
@@ -205,6 +208,9 @@ try:
         print("Temperature Moving Average: ", movingAverage())
         print("Humidity Moving Average   : ", humidMovingAverage())
         print("Pressure Moving Average   : ", pressureMovingAverage())
+
+        print("CO2 : ", ccs.geteCO2())
+        print("TVOC: ", ccs.getTVOC)
 
         totalAverageTemp = (totalAverageTemp*(counter) + celcius)/(counter+1)
 
