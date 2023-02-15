@@ -10,7 +10,7 @@ import RPi.GPIO as GPIO
 import adafruit_ccs811
 
 
-i2cccs = 0x5b
+i2cccs = board.I2C()
 ccs =  adafruit_ccs811.CCS811(i2cccs)
 
 
