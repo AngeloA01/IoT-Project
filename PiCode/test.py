@@ -10,8 +10,8 @@ import RPi.GPIO as GPIO
 import adafruit_ccs811
 
 
-i2cccs = board.I2C()
-ccs =  adafruit_ccs811.CCS811(i2cccs)
+i2cCCS = board.I2C() 
+ccs811 = adafruit_ccs811.CCS811(i2cCCS, 0x5B)
 
 
 #GPIO setup for button
@@ -70,6 +70,22 @@ totalAverageHumid = 0
 lastTemps = [None] * 60 #empty array
 lastHumid = [None] * 60
 lastPress = [None] * 60
+lastCO2 = [None] * 60
+lastTVOC = [None] * 60
+
+def movingAverageGeneral(array):
+    if array == [None] * 60:
+        return False
+    else:
+        measured = 0
+        runningSum = 0
+        for x in range(0,60):
+            if (array[x] != None):
+                runningSum += array[x]
+                measured += 1
+            elif array[x] == None:
+                average = runningSum/measured
+                return average
 
 
 
@@ -212,14 +228,16 @@ try:
         lastTemps[counter%60] = celcius
         lastHumid[counter%60] = rel_humidity
         lastPress[counter%60] = sensor.pressure
+        lastCO2[counter%60] = ccs811.evo2
+        lastTVOC[counter%60] = ccs811.tvoc
         counter += 1
-        print("Temperature Moving Average: ", movingAverage())
-        print("Humidity Moving Average   : ", humidMovingAverage())
-        print("Pressure Moving Average   : ", pressureMovingAverage())
+        print("Temperature Moving Average: ", movingAverageGeneral(lastTemps))
+        print("Humidity Moving Average   : ", movingAverageGeneral(lastHumid))
+        print("Pressure Moving Average   : ", movingAverageGeneral(lastPress))
 
         
-        print("CO2 : ", ccs.evo2)
-        print("TVOC: ", ccs.tvoc)
+        print("CO2 Moving Average : ", movingAverageGeneral(lastCO2))
+        print("TVOC Moving Average: ", movingAverageGeneral(lastTVOC))
 
         time.sleep(0.5)
 
