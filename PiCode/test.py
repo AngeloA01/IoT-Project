@@ -10,7 +10,7 @@ import RPi.GPIO as GPIO
 import adafruit_ccs811
 
 
-i2cccs = busio.I2C(board.SCL, board.SDA)
+i2cccs = board.I2C()
 ccs =  adafruit_ccs811.CCS811(i2cccs)
 
 
@@ -174,6 +174,9 @@ def ProcessTuple():
 
 
 counter = 0
+
+while not ccs.data_ready:
+            pass
 try: 
     while (active):
 
@@ -201,8 +204,7 @@ try:
 
         time.sleep(0.1)
 
-        if ccs.available():
-            ccs.readData()
+       
 
       
         time.sleep(2)
@@ -215,8 +217,11 @@ try:
         print("Humidity Moving Average   : ", humidMovingAverage())
         print("Pressure Moving Average   : ", pressureMovingAverage())
 
+        
         print("CO2 : ", ccs.evo2)
         print("TVOC: ", ccs.tvoc)
+
+        time.sleep(0.5)
 
         totalAverageTemp = (totalAverageTemp*(counter) + celcius)/(counter+1)
 
