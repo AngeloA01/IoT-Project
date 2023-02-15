@@ -2,7 +2,7 @@ import time
 import board
 import adafruit_ccs811
 
-i2c = board.I2C() 
+i2c = board.I2C(0x5B) 
 ccs811 = adafruit_ccs811.CCS811(i2c)
 
 # Wait for the sensor to be ready
