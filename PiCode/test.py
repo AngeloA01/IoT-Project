@@ -227,7 +227,7 @@ try:
         lastTemps[counter%60] = celcius
         lastHumid[counter%60] = rel_humidity
         lastPress[counter%60] = sensor.pressure
-        lastCO2[counter%60] = ccs811.evo2
+        lastCO2[counter%60] = ccs811.eco2
         lastTVOC[counter%60] = ccs811.tvoc
         counter += 1
         print("Temperature Moving Average: ", movingAverageGeneral(lastTemps))
