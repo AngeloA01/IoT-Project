@@ -3,14 +3,14 @@ db = "https://embedded-lab-2-part-2-default-rtdb.europe-west1.firebasedatabase.a
 
 
 def get_temperature():
-        response = requests.get(db+"/temperature/.json")
+        response = requests.get(db+"/Temperature/.json")
         temperature = response.json()
         temp_list = list(temperature.values())
         k=0
         sum=0
         while (k<len(temp_list)):
             p = temp_list[k]
-            p1 = p["temperature: "]
+            p1 = p["Temperature"]
             sum = sum + p1
             k+=1
         avg = sum/k
