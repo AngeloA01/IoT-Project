@@ -87,6 +87,9 @@ def movingAverageGeneral(array):
                 average = runningSum/measured
                 return average
 
+        average = runningSum/measured
+        return average
+
 
 
 # def movingAverage():
