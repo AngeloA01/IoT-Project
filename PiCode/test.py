@@ -233,6 +233,11 @@ try:
         lastCO2[counter] = ccs811.eco2
         lastTVOC[counter] = ccs811.tvoc
         counter += 1
+        avgTemp = movingAverageGeneral(lastHumid)
+        avgHumid = movingAverageGeneral(lastHumid)
+        avgPress = movingAverageGeneral(lastPress)
+        avgCO2 = movingAverageGeneral(lastCO2)
+        avgTVOC = movingAverageGeneral(lastTVOC)
         print("Temperature Moving Average: ", movingAverageGeneral(lastTemps))
         print("Humidity Moving Average   : ", movingAverageGeneral(lastHumid))
         print("Pressure Moving Average   : ", movingAverageGeneral(lastPress))
@@ -247,14 +252,15 @@ try:
 
         if (counter == 60): counter = 0
 
-        # path = "temp_&_humidity.json"
-        # data = {"Temperature: ": celcius, "Humidity: ": rel_humidity}
-        # response = authed_session.post(db+path, json=data)
+        if (counter == 30):
+            path = "allValues.json"
+            data = {"Temperature: ": avgTemp, "Humidity: ": avgHumid, "Pressure: ": avgPress, "CO2: ": avgCO2, "TVOC: ": avgTVOC}
+            response = authed_session.post(db+path, json=data)
 
-        # if response.ok:
-        #     print("Created new node named {}".format(response.json()["name"]))
-        # else:
-        #     raise ConnectionError("Could not write to database: {}".format(response.text))
+            if response.ok:
+                print("Created new node named {}".format(response.json()["name"]))
+            else:
+                raise ConnectionError("Could not write to database: {}".format(response.text))
         # # if counter == 10:
         # #     #send data - Insert function here
 except KeyboardInterrupt:
