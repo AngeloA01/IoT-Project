@@ -4,13 +4,14 @@ import random
 from google.oauth2 import service_account
 from google.auth.transport.requests import AuthorizedSession
 import board
+import busio
 import adafruit_bmp280
 import RPi.GPIO as GPIO
+import adafruit_ccs811
 
-from Adafruit_CCS811 import Adafruit_CCS811
 
-
-ccs =  Adafruit_CCS811()
+i2cccs = busio.I2C(board.SCL, board.SDA)
+ccs =  adafruit_ccs811.CCS811(i2cccs)
 
 
 #GPIO setup for button
@@ -200,7 +201,8 @@ try:
 
         time.sleep(0.1)
 
-        ccs.readData()
+        if ccs.available():
+            ccs.readData()
 
       
         time.sleep(2)
@@ -213,8 +215,8 @@ try:
         print("Humidity Moving Average   : ", humidMovingAverage())
         print("Pressure Moving Average   : ", pressureMovingAverage())
 
-        print("CO2 : ", ccs.geteCO2())
-        print("TVOC: ", ccs.getTVOC())
+        print("CO2 : ", ccs.evo2)
+        print("TVOC: ", ccs.tvoc)
 
         totalAverageTemp = (totalAverageTemp*(counter) + celcius)/(counter+1)
 
