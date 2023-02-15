@@ -190,9 +190,8 @@ def ProcessTuple():
 
 
 counter = 0
-
-while not ccs.data_ready:
-            pass
+while not ccs811.data_ready:
+    pass
 try: 
     while (active):
 
