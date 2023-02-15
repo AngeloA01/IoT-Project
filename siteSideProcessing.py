@@ -60,7 +60,15 @@ def addtoArrays(temp, dateData):
 
     
     
+def graphAllData(startTime, endTime):
+    startMin = startTime.hour * 60 + startTime.minute
+    endMin = endTime.hour * 60 + endTime.minute
 
+    for x in range(startMin, endMin):
+        tempArray[int(x/10)] = 20 + random.gauss(0, 5)
+
+    plt.plot(range(startMin, endMin), tempArray)
+    plt.show()
 
 
 
@@ -75,9 +83,14 @@ exampleJSON = {Temp, Humid, Pressure, Co2, TVoC, Date}
 
 addtoArrays(Temp, Date)
 
-for x in range(arrayConst):
-    if (tempArray[x] != None):
-        print(tempArray[x], x)
+# for x in range(arrayConst):
+#     if (tempArray[x] != None):
+#         print(tempArray[x], x)
+
+startDate = datetime(2000, 2, 2, 8, 0)
+endDate = datetime(2000, 2, 2, 10, 0)
+
+graphAllData(startDate, endDate)
 
 
 
