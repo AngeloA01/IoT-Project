@@ -222,27 +222,27 @@ try:
        
 
       
-        time.sleep(2)
+        
 
-        lastTemps[counter%60] = celcius
-        lastHumid[counter%60] = rel_humidity
-        lastPress[counter%60] = sensor.pressure
-        lastCO2[counter%60] = ccs811.eco2
-        lastTVOC[counter%60] = ccs811.tvoc
+        lastTemps[counter] = celcius
+        lastHumid[counter] = rel_humidity
+        lastPress[counter] = sensor.pressure
+        lastCO2[counter] = ccs811.eco2
+        lastTVOC[counter] = ccs811.tvoc
         counter += 1
         print("Temperature Moving Average: ", movingAverageGeneral(lastTemps))
         print("Humidity Moving Average   : ", movingAverageGeneral(lastHumid))
         print("Pressure Moving Average   : ", movingAverageGeneral(lastPress))
 
         
-        print("CO2 Moving Average : ", movingAverageGeneral(lastCO2))
-        print("TVOC Moving Average: ", movingAverageGeneral(lastTVOC))
+        print("CO2 Moving Average, PPM   : ", movingAverageGeneral(lastCO2))
+        print("TVOC Moving Average, PPB  : ", movingAverageGeneral(lastTVOC))
 
-        time.sleep(0.5)
+        time.sleep(0.3)
 
         totalAverageTemp = (totalAverageTemp*(counter) + celcius)/(counter+1)
 
-        
+        if (counter > 60): counter = 0
 
         # path = "temp_&_humidity.json"
         # data = {"Temperature: ": celcius, "Humidity: ": rel_humidity}
