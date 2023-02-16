@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-import read_temp_data, read_humidity, read_pressure, read_C02, read_TVOC
+import read_temp_data, read_humidity, read_pressure, read_C02, read_TVOC, get_advice
 
 app = Flask(__name__)
 # @app.route("/")
@@ -11,9 +11,10 @@ def get_data():
     Temperature = read_temp_data.get_temperature()
     Humidity = read_humidity.get_humidity()
     Pressure = read_pressure.get_pressure()
+    Advice = get_advice.getadvice()
     TVOC = read_TVOC.get_TVOC()
     C02 = read_C02.get_C02()
-    return render_template('checkmyhealth.html', C02_result=C02,TVOC_result=TVOC, Temperature_result=Temperature, Humidity_result=Humidity, Pressure_result=Pressure)
+    return render_template('checkmyhealth.html', Advice_result = Advice, C02_result=C02, TVOC_result=TVOC, Temperature_result=Temperature, Humidity_result=Humidity, Pressure_result=Pressure)
 
 @app.route("/howitworks.html")
 def mainpage():
@@ -25,8 +26,9 @@ def secondpage():
     Humidity = read_humidity.get_humidity()
     Pressure = read_pressure.get_pressure()
     TVOC = read_TVOC.get_TVOC()
+    Advice = get_advice.getadvice()
     C02 = read_C02.get_C02()
-    return render_template('checkmyhealth.html', C02_result=C02, TVOC_result=TVOC, Temperature_result=Temperature, Humidity_result=Humidity, Pressure_result=Pressure)
+    return render_template('checkmyhealth.html', Advice_result = Advice, C02_result=C02, TVOC_result=TVOC, Temperature_result=Temperature, Humidity_result=Humidity, Pressure_result=Pressure)
 
 @app.route("/mainpage.html")
 def thirdpage():
@@ -35,6 +37,7 @@ def thirdpage():
 @app.route("/about.html")
 def fourthpage():
     return render_template('about.html')
+
 
 
 if __name__ == "__main__":
