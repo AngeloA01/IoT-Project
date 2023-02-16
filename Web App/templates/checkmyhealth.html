@@ -106,24 +106,19 @@
         <h1 style="font-family: 'quicksandbold'; font-size:180%; text-align:center;
          top:60px; position: relative">Click the button below to learn how to stay healthy in these conditions!</h1>
 
-        <button class = "btn temp" onclick = "display_info(temperature_result)"
-         style = "font-family: 'quicksandbold'; font-size:130% ;position: relative; top:260px;
+        <button class = "btn temp" onclick = "display_info()"
+         style = "font-family: 'quicksandbold'; font-size:130% ;position: relative; top:300px;
          left:600px">Give me advice!</button>
 
     <script>
-        function cater_advice(advices, temp, pres, hum) {
-            if (parseFloat(temp) > 15) {
-                return advices[0];
-            } else {
-                return advices[1];
-            }
+        function display_info(){
+        document.getElementById("advice").innerHTML = "{{Advice_result}}"
         }
-
-        function display_info(temperature){
-            temp_obj = temperature.toString()
-            res=["It's quite hot in here.","Wear sunscreen"]
-            document.getElementById("advice").innerHTML = cater_advice(res, temp_obj, pressure_result, hum_result);
-        }
+        // function display_info(temperature){
+        //     temp_obj = temperature.toString()
+        //     res=["It's quite hot in here.","Wear sunscreen"]
+        //     document.getElementById("advice").innerHTML = "hello";
+        // }
         function openNav() {
             document.getElementById("side_menu").style.width = "250px";
             document.getElementById("main").style.marginLeft = "250px";
@@ -205,7 +200,14 @@
     setInterval(fetchCO2, 1000); // fetch CO2 value every second
     </script>
 
-    <div id = "advice" style = "position:relative; text-align: center; top:300px; font-family: 'quicksandbold';"></div>
+    <script>
+        const response5 = await fetch("http://127.0.0.1:8000/Advice");
+        const result5 = await response5.json();
+        document.getElementById("advice").innerHTML = JSON.stringify(result5)
+        advice_result = JSON.stringify(result5)
+    </script>
+
+    <div id = "advice" style = "position:relative; text-align: center; top:330px;font-size: 140%; color:#920000; font-family: 'quicksandbold';"></div>
 
     </body>
 
@@ -224,6 +226,7 @@
        
         <span id="co2_value", style = "color:rgb(152, 36, 7);font-family:'quicksandbold'; font-size:130%; top:130px; text-align: center;
         position: relative">{{ C02_result }} ppm.</span>
+
     </body>
 
 </html>
