@@ -136,38 +136,73 @@
     </script>
     
     <script>
-        const response = await fetch("http://127.0.0.1:8000/Temperature/");
-        const result = await response.json();
-        document.getElementById("result").innerHTML = JSON.stringify(result)
-        Temperature_result = JSON.stringify(result)
+        function fetchTemperature() {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == XMLHttpRequest.DONE) {
+                    document.getElementById("temperature_value").innerHTML = xhr.responseText;
+                }
+            }
+            xhr.open('GET', '/Temperature_stream', true);
+            xhr.send(null);
+        }
+        setInterval(fetchTemperature, 1000); // fetch temperature value every second
+        </script>
+
+    <script>
+    function fetchHumidity() {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+                document.getElementById("humidity_value").innerHTML = xhr.responseText;
+            }
+        }
+        xhr.open('GET', '/Humidity_stream', true);
+        xhr.send(null);
+    }
+    setInterval(fetchHumidity, 1000); // fetch humidity value every second
     </script>
 
     <script>
-        const response1 = await fetch("http://127.0.0.1:8000/Humidity/");
-        const result1 = await response1.json();
-        document.getElementById("Humidity").innerHTML, _result = JSON.stringify(result1)
-        Humidity_result = JSON.stringify(result1)
-    </script>
-
-    <script>
-        const response2 = await fetch("http://127.0.0.1:8000/Pressure");
-        const result2 = await response2.json();
-        document.getElementById("Pressure)".innerHTML = JSON.stringify(result2))
-        Pressure_result = JSON.stringify(result2)
+    function fetchPressure() {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+                document.getElementById("pressure_value").innerHTML = xhr.responseText;
+            }
+        }
+        xhr.open('GET', '/Pressure_stream', true);
+        xhr.send(null);
+    }
+    setInterval(fetchPressure, 1000); // fetch pressure value every second
     </script>
     
     <script>
-        const response3 = await fetch("http://127.0.0.1:8000/TVOC");
-        const result3 = await response3.json();
-        document.getElementById("Pressure)".innerHTML = JSON.stringify(result3))
-        TVOC_result = JSON.stringify(result3)
-    </script>
+        function fetchTVOC() {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == XMLHttpRequest.DONE) {
+                    document.getElementById("tvoc_value").innerHTML = xhr.responseText;
+                }
+            }
+            xhr.open('GET', '/TVOC_stream', true);
+            xhr.send(null);
+        }
+        setInterval(fetchTVOC, 1000); // fetch TVOC value every second
+        </script>
 
     <script>
-        const response4 = await fetch("http://127.0.0.1:8000/C02");
-        const result4 = await response4.json();
-        document.getElementById("Pressure)".innerHTML = JSON.stringify(result4))
-        C02_result = JSON.stringify(result4)
+    function fetchCO2() {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+                document.getElementById("co2_value").innerHTML = xhr.responseText;
+            }
+        }
+        xhr.open('GET', '/C02_stream', true);
+        xhr.send(null);
+    }
+    setInterval(fetchCO2, 1000); // fetch CO2 value every second
     </script>
 
     <div id = "advice" style = "position:relative; text-align: center; top:300px; font-family: 'quicksandbold';"></div>
@@ -175,20 +210,20 @@
     </body>
 
     <body>
-        <div id="result", style = "color:rgb(152, 36, 7);font-family:'quicksandbold'; font-size:130%; top:90px; text-align: center;
-        position: relative">The temperature is currently {{Temperature_result}} degrees Celsius</div>
+        <span id="temperature_value", style = "color:rgb(152, 36, 7);font-family:'quicksandbold'; font-size:130%; top:90px; text-align: center;
+        position: relative">The temperature is currently {{Temperature_result}} degrees Celsius</span>
 
-        <div id="Humidity", style = "color:rgb(152, 36, 7);font-family:'quicksandbold'; font-size:130%; top:100px; text-align: center;
-        position: relative">The humidity is currently {{Humidity_result}} percent.</div>
+        <span id="humidity_value", style = "color:rgb(152, 36, 7);font-family:'quicksandbold'; font-size:130%; top:100px; text-align: center;
+        position: relative">The humidity is currently {{Humidity_result}} percent.</span>
 
-        <div id="pressure", style = "color:rgb(152, 36, 7);font-family:'quicksandbold'; font-size:130%; top:110px; text-align: center;
-        position: relative">The pressure is currently {{Pressure_result}} hPa.</div>
+        <span id="pressure_value", style = "color:rgb(152, 36, 7);font-family:'quicksandbold'; font-size:130%; top:110px; text-align: center;
+        position: relative">The pressure is currently {{Pressure_result}} hPa.</span>
        
-       <div id="pressure", style = "color:rgb(152, 36, 7);font-family:'quicksandbold'; font-size:130%; top:110px; text-align: center;
-        position: relative">The total volatile organic compounds is currently {{TVOC_result}} mg/m3.</div>
+       <span id="tvoc_value", style = "color:rgb(152, 36, 7);font-family:'quicksandbold'; font-size:130%; top:120px; text-align: center;
+        position: relative">The total volatile organic compounds is currently {{TVOC_result}} mg/m3.</span>
        
-       <div id="pressure", style = "color:rgb(152, 36, 7);font-family:'quicksandbold'; font-size:130%; top:110px; text-align: center;
-        position: relative">The C02 is currently {{C02_result}} ppm.</div>
+        <span id="co2_value", style = "color:rgb(152, 36, 7);font-family:'quicksandbold'; font-size:130%; top:130px; text-align: center;
+        position: relative">{{ C02_result }} ppm.</span>
     </body>
 
 </html>
