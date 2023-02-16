@@ -111,13 +111,6 @@
          left:600px">Give me advice!</button>
 
     <script>
-        function cater_advice(advices, temp, pres, hum) {
-            if (parseFloat(temp) > 15) {
-                return advices[0];
-            } else {
-                return advices[1];
-            }
-        }
         function display_info(){
         document.getElementById("advice").innerHTML = "{{Advice_result}}"
         }
@@ -179,7 +172,7 @@
         C02_result = JSON.stringify(result4)
     </script>
 
-    <div id = "advice" style = "position:relative; text-align: center; top:300px; font-family: 'quicksandbold';"></div>
+    <div id = "advice" style = "position:relative; text-align: center; top:330px;font-size: 140%; color:#920000; font-family: 'quicksandbold';"></div>
 
     </body>
 
