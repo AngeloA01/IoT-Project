@@ -222,11 +222,7 @@ try:
 
         time.sleep(0.1)
 
-       
-
-      
-        
-
+    
         lastTemps[counter] = celcius
         lastHumid[counter] = rel_humidity
         lastPress[counter] = sensor.pressure
