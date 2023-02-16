@@ -106,23 +106,23 @@
         <h1 style="font-family: 'quicksandbold'; font-size:180%; text-align:center;
          top:60px; position: relative">Click the button below to learn how to stay healthy in these conditions!</h1>
 
-        <button class = "btn temp" onclick = "display_info()"
+        <button class = "btn temp" onclick = "display_info(temperature_result)"
          style = "font-family: 'quicksandbold'; font-size:130% ;position: relative; top:260px;
          left:600px">Give me advice!</button>
 
     <script>
-        temp_obj = JSON.parse(temperature_result)
-        
-        res=["It's quite hot in here, be careful you don't get dehydrated","Wear sunscreen"]
         function cater_advice(advices, temp, pres, hum) {
-            if (temp > 15) {
+            if (parseFloat(temp) > 15) {
                 return advices[0];
             } else {
                 return advices[1];
             }
         }
-        function display_info(){
-            document.getElementById("advice").innerHTML = "It's quite warm outside. You should drink some water.";
+
+        function display_info(temperature){
+            temp_obj = temperature.toString()
+            res=["It's quite hot in here.","Wear sunscreen"]
+            document.getElementById("advice").innerHTML = cater_advice(res, temp_obj, pressure_result, hum_result);
         }
         function openNav() {
             document.getElementById("side_menu").style.width = "250px";
@@ -150,6 +150,7 @@
     </script>
 
     <script>
+<<<<<<< HEAD
         const response2 = await fetch("http://127.0.0.1:8000/Pressure");
         const result2 = await response2.json();
         document.getElementById("Pressure)".innerHTML = JSON.stringify(result2))
@@ -167,10 +168,10 @@
         const response4 = await fetch("http://127.0.0.1:8000/C02");
         const result4 = await response4.json();
         document.getElementById("Pressure)".innerHTML = JSON.stringify(result4))
-        C02_result = JSON.stringify(result4 )
+        C02_result = JSON.stringify(result4)
     </script>
 
-    <div id = "advice" style = "position:relative; text-align: center; top:300px"></div>
+    <div id = "advice" style = "position:relative; text-align: center; top:300px; font-family: 'quicksandbold';"></div>
 
     </body>
 

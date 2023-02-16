@@ -1,8 +1,6 @@
 import requests
-
 db = "https://embedded-lab-2-part-2-default-rtdb.europe-west1.firebasedatabase.app/"
 def get_humidity():
-        
         response = requests.get(db+"/Humidity.json")
         Humidity = response.json()
         hum_list = list(Humidity.values())
