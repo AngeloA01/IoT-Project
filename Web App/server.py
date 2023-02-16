@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-import read_temp_data, read_humidity, read_pressure, read_C02, read_TVOC
+import read_temp_data, read_humidity, read_pressure, read_C02, read_TVOC, get_advice
 import firebase_admin
 from flask import Flask, Response
 from flask import Flask, jsonify
