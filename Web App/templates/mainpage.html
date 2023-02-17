@@ -4,16 +4,20 @@
         <title>
             HealthEE: A revolutionary health monitor
         </title>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     </head>
     <style>
+
         body {
             background:linear-gradient(
-                to right,#f96868,#f89f9f,#f96868
+                to right, #f96868,#f89f9f,#f96868
             );
         }
         @font-face {
             font-family: 'quicksandbold';
-            src: url(/static/Quicksand_Bold.otf/);
+            src:url(/static/Quicksand_Bold.otf/);
             font-style: oblique;
             font-weight:100;
         }
@@ -23,12 +27,33 @@
             font-style: oblique;
             font-weight:100;
         }
+
+        .chart {
+        flex: 1;
+        width: 100px !important;
+        height: 100px !important;
+        display: inline-block;
+        margin: 10px;
+        }
+
+        .chart-container {
+        display: flex;
+        width: 900px;
+        margin: 10px;
+        }
+
+        .word-container {
+        display: flex;
+        width: 900px;
+        margin: 30px;
+        }
+
         .text_shadow {
             text-shadow: 2px 2px 5px rgb(149, 32, 0);
         }
         .topnav{
             overflow: hidden;
-            background-color:mediumblue;
+            background-color: royalblue;
         }
         .sidemenu{ /* sidebar menu */
             height: 100%;
@@ -37,8 +62,8 @@
             z-index: 1;
             top:0;
             left:0;
-            background:linear-gradient(
-                to right, royalblue, #f97b7b);;
+            background: linear-gradient(
+                to right, royalblue, #f97b7b);
             overflow-x:auto;
             padding-top: 60px;
             transition: 0.7s
@@ -60,13 +85,12 @@
         }
         .openbtn {
             font-size: 25px;
-            cursor:pointer;
+            cursor: pointer;
             background-color:rgb(152, 36, 7);
             color: rgb(255, 202, 133);
             border-radius: 8px;
             padding: 10px 15px;
             border: none;
-            
         }
         .openbtn:hover {
             background-color: rgb(0, 0, 0);
@@ -79,40 +103,47 @@
             .sidebar {padding-top: 15px;}
             .sidebar a {font-size: 18px;}
         }
+        .btn {
+            border:none;
+            color:white;
+            padding: 17px 34px;
+            cursor: pointer;
+            border-radius: 16px;
+        }
+        .temp {background-color: crimson;}
+        .temp:hover {background-color:#920000;}
 
     </style>
-    <body>
 
+    <body>
         <div id = "side_menu" class= "sidemenu">
-            <a style = "font-size:40px; color:rgb(152, 36, 7)" href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a style = "font-family: 'quicksandbold'; color: rgb(152, 36, 7);" href="mainpage.html">Home</a>
-            <a style = "font-family: 'quicksandbold'; color:rgb(152, 36, 7)" href="checkmyhealth.html">Check my health!</a>
-            <a style = "font-family: 'quicksandbold'; color: rgb(152, 36, 7);" href="howitworks.html">How it works</a>
-            <a style = "font-family: 'quicksandbold'; color:rgb(152, 36, 7)" href="about.html">About</a>
+            <a style = "font-size:40px" href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a style = "font-family: 'quicksandbold'; color: rgb(20, 0, 72);" href="mainpage.html">Home</a>
+            <a style = "font-family: 'quicksandbold'; color:rgb(20, 0, 72)" href="checkmyhealth.html">Check my health!</a>
+            <a style = "font-family: 'quicksandbold'; color:rgb(20, 0, 72)" href="howitworks.html">How it works</a>
+            <a style = "font-family: 'quicksandbold'; color:rgb(20, 0, 72)" href="about.html">About</a>
         </div>
 
         <div id="main">
             <button class="openbtn" onclick="openNav()" style = "font-family: 'quicksandbold';">&#9776; Menu</button>
         </div>
 
-        <!-- <img src="heartbeat2.png" style = "position:absolute;top:88px;left:674px; width: 120px; height:160px;">  -->
-        <strong></strong><h1 style = "color: rgb(152, 36, 7);font-size: 500%; font-family: quicksandbold; text-align: center;
-         position:relative; top:80px; left:0px;">HealthEE</strong></h1>
-        <h1 style = "color: rgb(152, 36, 7); font-size: 330%; font-family: quicksandbold; position:relative;
-        top:75px; text-align: center; left:0px;"><strong>Revolutionary health monitoring</strong></h1>
-        <p style = "color: rgb(152, 36, 7); font-size: 200%; font-family: quicksandlight; text-align:center; position:relative;
-         top:120px;">HealthEE makes use of cutting-edge technology</p>
-        <p style = "color: rgb(152, 36, 7); font-size: 200%; font-family: quicksandlight; text-align:center; position:relative;
-         top:120px;"> to give you advice on how to stay healthy.</p>
-        
+        <h1 style="font-family: 'quicksandbold'; font-size:180%; text-align:center;
+         top:60px; position: relative">Click the button below to learn how to stay healthy in these conditions!</h1>
 
-        <script type="module" src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
-        <script type="module" src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
-        <script src="./a.mjs"></script>
-        <script type="module" src = 'firebase/app'></script>
-        <script type="module" src = 'firebase/database'></script>
+        <button class = "btn temp" onclick = "display_info()"
+         style = "font-family: 'quicksandbold'; font-size:130% ;position: relative; top:300px;
+         left:600px">Give me advice!</button>
 
-        <script>
+    <script>
+        function display_info(){
+        document.getElementById("advice").innerHTML = "{{Advice_result}}"
+        }
+        // function display_info(temperature){
+        //     temp_obj = temperature.toString()
+        //     res=["It's quite hot in here.","Wear sunscreen"]
+        //     document.getElementById("advice").innerHTML = "hello";
+        // }
         function openNav() {
             document.getElementById("side_menu").style.width = "250px";
             document.getElementById("main").style.marginLeft = "250px";
@@ -122,28 +153,334 @@
             document.getElementById("side_menu").style.width = "0";
             document.getElementById("main").style.marginLeft = "0";
         }
+    </script>
+    
+    <script>
+
+        // Define a variable to store the chart object
+        var tempChart;
+        
+        function fetchTemperature() {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == XMLHttpRequest.DONE) {
+                    var response = JSON.parse(xhr.responseText);
+                    var tempValue = response.Temperature;
+                    console.log(tempValue);
+                    // If the chart hasn't been created yet, create it
+                    if (!tempChart) {
+                        var ctx = document.getElementById("temperature_chart").getContext("2d");
+                        var data = {
+                            labels: ["Temperature"],
+                            datasets: [{
+                                label: "Temperature Value",
+                                backgroundColor: "rgba(25,255,15,0.2)",
+                                borderColor: "rgba(255,99,132,1)",
+                                borderWidth: 1,
+                                data: [tempValue],
+                            }]
+                        };
+                        var options = {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        };
+                        tempChart = new Chart(ctx, {
+                            type: "bar",
+                            data: data,
+                            options: options
+                        });
+                    } else {
+                        // If the chart already exists, update its data and redraw it
+                        tempChart.data.datasets[0].data[0] = tempValue;
+                        tempChart.update();
+                    }
+                    // Update the temperature value display
+                    document.getElementById("temp_value").innerHTML = "The temperature is currently " + tempValue + " degrees Celsius";
+                }
+            }
+            xhr.open('GET', '/Temperature_stream', true);
+            xhr.send(null);
+        }
+        
+        setInterval(fetchTemperature, 1000);
+        
+        </script>
+        
+
+        <script>
+
+            // Define a variable to store the chart object
+            var humidityChart;
+            
+            function fetchHumidity() {
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == XMLHttpRequest.DONE) {
+                        var response = JSON.parse(xhr.responseText);
+                        var humidityValue = response.Humidity;
+                        console.log(humidityValue);
+                        // If the chart hasn't been created yet, create it
+                        if (!humidityChart) {
+                            var ctx = document.getElementById("humidity_chart").getContext("2d");
+                            var data = {
+                                labels: ["Humidity"],
+                                datasets: [{
+                                    label: "Humidity Value",
+                                    backgroundColor: "rgba(255,255,152,0.2)",
+                                    borderColor: "rgba(255,99,132,1)",
+                                    borderWidth: 1,
+                                    data: [humidityValue],
+                                }]
+                            };
+                            var options = {
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero: true
+                                        }
+                                    }]
+                                }
+                            };
+                            humidityChart = new Chart(ctx, {
+                                type: "bar",
+                                data: data,
+                                options: options
+                                
+                            });
+                        } else {
+                            // If the chart already exists, update its data and redraw it
+                            humidityChart.data.datasets[0].data[0] = humidityValue;
+                            humidityChart.update();
+                        }
+                        // Update the humidity value display
+                        document.getElementById("humidity_value").innerHTML = "The humidity is currently " + humidityValue +" percent";
+                    }
+                }
+                xhr.open('GET', '/Humidity_stream', true);
+                xhr.send(null);
+            }
+            
+            setInterval(fetchHumidity, 1000);
+            
+            </script>
+    <script>
+        // Define a variable to store the chart object
+        var pressureChart;
+        
+        function fetchPressure() {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == XMLHttpRequest.DONE) {
+                    var response = JSON.parse(xhr.responseText);
+                    var pressureValue = response.Pressure;
+                    console.log(pressureValue);
+                    // If the chart hasn't been created yet, create it
+                    if (!pressureChart) {
+                        var ctx = document.getElementById("pressure_chart").getContext("2d");
+                        var data = {
+                            labels: ["Pressure"],
+                            datasets: [{
+                                label: "Pressure Value",
+                                backgroundColor: "rgba(0,72,132,0.2)",
+                                borderColor: "rgba(255,99,132,1)",
+                                borderWidth: 1,
+                                data: [pressureValue],
+                            }]
+                        };
+                        var options = {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        };
+                        pressureChart = new Chart(ctx, {
+                            type: "bar",
+                            data: data,
+                            options: options
+                        });
+                    } else {
+                        // If the chart already exists, update its data and redraw it
+                        pressureChart.data.datasets[0].data[0] = pressureValue;
+                        pressureChart.update();
+                    }
+                    // Update the Pressure value display
+                    document.getElementById("pressure_value").innerHTML = "The pressure is currently" + pressureValue + " hPa";
+                }
+            }
+            xhr.open('GET', '/Pressure_stream', true);
+            xhr.send(null);
+        }
+        
+        setInterval(fetchPressure, 1000);
+        
         </script>
     
-    
-
-    <script type="module">
-     
-        import { initializeApp } from 'firebase/app';
-        import { getDatabase, ref, set } from 'firebase/database';
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyAz1R9Y4rgIUDR4TINqXvG2BbjZGzlWbXs",
-            authDomain: "embedded-lab-2-part-2.firebaseapp.com",
-            databaseURL: "https://embedded-lab-2-part-2-default-rtdb.europe-west1.firebasedatabase.app",
-            projectId: "embedded-lab-2-part-2",
-            storageBucket: "embedded-lab-2-part-2.appspot.com",
-            messagingSenderId: "164614426559",
-            appId: "1:164614426559:web:cf7044cee5ca58327adb0a",
-            measurementId: "G-FNKN7NGVYY"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
+    <script>
+        // Define a variable to store the chart object
+        var tvocChart;
+        
+        function fetchTVOC() {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == XMLHttpRequest.DONE) {
+                    var response = JSON.parse(xhr.responseText);
+                    var tvocValue = response.TVOC;
+                    console.log(tvocValue);
+                    // If the chart hasn't been created yet, create it
+                    if (!tvocChart) {
+                        var ctx = document.getElementById("tvoc_chart").getContext("2d");
+                        var data = {
+                            labels: ["TVOC"],
+                            datasets: [{
+                                label: "TVOC Value",
+                                backgroundColor: "rgba(54, 122, 200, 0.2)",
+                                borderColor: "rgba(54, 162, 235, 1)",
+                                borderWidth: 1,
+                                data: [tvocValue],
+                            }]
+                        };
+                        var options = {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        };
+                        tvocChart = new Chart(ctx, {
+                            type: "bar",
+                            data: data,
+                            options: options
+                        });
+                    } else {
+                        // If the chart already exists, update its data and redraw it
+                        tvocChart.data.datasets[0].data[0] = tvocValue;
+                        tvocChart.update();
+                    }
+                    // Update the TVOC value display
+                    document.getElementById("tvoc_value").innerHTML = "The total volatile organic compounds is currently " + tvocValue + " mg/m3";
+                }
+            }
+            xhr.open('GET', '/TVOC_stream', true);
+            xhr.send(null);
+        }
+        
+        setInterval(fetchTVOC, 1000);
     </script>
 
+<script>
+
+    // Define a variable to store the chart object
+    var co2Chart;
+    
+    function fetchCO2() {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+               // var co2Value = parseFloat(xhr.responseText);
+                var response = JSON.parse(xhr.responseText);
+                var co2Value = response.C02;
+                console.log(co2Value);
+                // If the chart hasn't been created yet, create it
+                if (!co2Chart) {
+                    var ctx = document.getElementById("C02_chart").getContext("2d");
+                    var data = {
+                        labels: ["CO2"],
+                        datasets: [{
+                            label: "CO2 Value",
+                            backgroundColor: "rgba(255,98,136,0.2)",
+                            borderColor: "rgba(255,99,132,1)",
+                            borderWidth: 1,
+                            data: [co2Value],
+                        }]
+                    };
+                    var options = {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    };
+                    co2Chart = new Chart(ctx, {
+                        type: "bar",
+                        data: data,
+                        options: options
+                    });
+                } else {
+                    // If the chart already exists, update its data and redraw it
+                    co2Chart.data.datasets[0].data[0] = co2Value;
+                    co2Chart.update();
+                }
+                // Update the CO2 value display
+                document.getElementById("co2_value").innerHTML = "C02 result " + co2Value + " ppm.";
+            }
+        }
+        xhr.open('GET', '/C02_stream', true);
+        xhr.send(null);
+    }
+    
+    setInterval(fetchCO2, 1000);
+    
+    </script>
+
+    <script>
+        const response5 = await fetch("http://127.0.0.1:8000/Advice");
+        const result5 = await response5.json();
+        document.getElementById("advice").innerHTML = JSON.stringify(result5)
+        advice_result = JSON.stringify(result5)
+    </script>
+
+
+    <body>
+        <div class="chart-container">
+
+        <canvas id="pressure_chart"  class="chart"></canvas>
+
+        <canvas id="C02_chart"  class="chart"></canvas>
+
+        <canvas id="tvoc_chart"  class="chart"></canvas>
+
+        <canvas id="temperature_chart"  class="chart"></canvas>
+
+        <canvas id="humidity_chart"  class="chart"></canvas>
+        
+        </div>
+
+        <span id = "advice" style = "position:relative; text-align: center; top:140px;font-size: 140%; color:#920000; font-family: 'quicksandbold';"></span>
+        
+        <div class="word-container">
+
+        <span id="pressure_value", style = "color:rgb(152, 36, 7); margin: 30px;font-family:'quicksandbold'; font-size:130%; top:120px; text-align: center;
+        position: relative"> Pressure_result </span>
+
+        <span id="co2_value", style = "color:rgb(152, 36, 7); margin: 30px;font-family:'quicksandbold'; font-size:130%; top:120px; text-align: center;
+        position: relative"> C02_result</span>
+
+        <span id="tvoc_value", style = "color:rgb(152, 36, 7); margin: 30px;font-family:'quicksandbold'; font-size:130%; top:120px; text-align: center;
+        position: relative">TVOC_result </span>
+
+        <span id="temp_value" style="color:rgb(152, 36, 7); margin: 30px; font-family:'quicksandbold'; font-size:130%; top:120px; text-align: center; position: relative">Temperature_result </span>
+
+        <span id="humidity_value", style = "color:rgb(152, 36, 7); margin: 30px;font-family:'quicksandbold'; font-size:130%; top:120px; text-align: center;
+        position: relative">Humidity_result </span>
+       
+
+       
+
+ 
+        </div>
+
     </body>
+
 </html>
