@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            HealthEE: A revolutionary health monitor
+        </title>
+    </head>
+    <style>
+        body {
+            background:linear-gradient(
+                to right,#f96868,#f89f9f,#f96868
+            );
+        }
+        @font-face {
+            font-family: 'quicksandbold';
+            src: url(/static/Quicksand_Bold.otf/);
+            font-style: oblique;
+            font-weight:100;
+        }
+        @font-face {
+            font-family: 'quicksandlight';
+            src: url(/static/Quicksand_Light.otf/);
+            font-style: oblique;
+            font-weight:100;
+        }
+        .text_shadow {
+            text-shadow: 2px 2px 5px rgb(149, 32, 0);
+        }
+        .topnav{
+            overflow: hidden;
+            background-color:mediumblue;
+        }
+        .sidemenu{ /* sidebar menu */
+            height: 100%;
+            width:0;
+            position:fixed;
+            z-index: 1;
+            top:0;
+            left:0;
+            background:linear-gradient(
+                to right, royalblue, #f97b7b);;
+            overflow-x:auto;
+            padding-top: 60px;
+            transition: 0.7s
+        }
+        .sidemenu a{ /*links*/
+            padding: 8px 8px 25px 40px;
+            font-size: 25px;
+            color:rgb(231, 239, 253);
+            display:block;
+            transition:0.3s;
+            text-decoration: none;
+        }
+        .sidemenu .closebtn {
+            position: absolute;
+            top: 0;
+            right: 15px;
+            font-size: 100px;
+            margin-left: 50px;
+        }
+        .openbtn {
+            font-size: 25px;
+            cursor:pointer;
+            background-color:rgb(152, 36, 7);
+            color: rgb(255, 202, 133);
+            border-radius: 8px;
+            padding: 10px 15px;
+            border: none;
+            
+        }
+        .openbtn:hover {
+            background-color: rgb(0, 0, 0);
+        }
+        #main {
+            transition: margin-left .5s;
+            padding: 20px;
+        }
+        @media screen and (max-height: 450px) {
+            .sidebar {padding-top: 15px;}
+            .sidebar a {font-size: 18px;}
+        }
+
+    </style>
+    <body>
+
+        <div id = "side_menu" class= "sidemenu">
+            <a style = "font-size:40px; color:rgb(152, 36, 7)" href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a style = "font-family: 'quicksandbold'; color: rgb(152, 36, 7);" href="mainpage.html">Home</a>
+            <a style = "font-family: 'quicksandbold'; color:rgb(152, 36, 7)" href="checkmyhealth.html">Check my health!</a>
+            <a style = "font-family: 'quicksandbold'; color: rgb(152, 36, 7);" href="howitworks.html">How it works</a>
+            <a style = "font-family: 'quicksandbold'; color:rgb(152, 36, 7)" href="about.html">About</a>
+            <a style = "font-family: 'quicksandbold'; color:rgb(152, 36, 7)" href="checkmydailyhealth.html">Check My Daily Health!</a>
+        </div>
+
+        <div id="main">
+            <button class="openbtn" onclick="openNav()" style = "font-family: 'quicksandbold';">&#9776; Menu</button>
+        </div>
+
+        <!-- <img src="heartbeat2.png" style = "position:absolute;top:88px;left:674px; width: 120px; height:160px;">  -->
+        <strong></strong><h1 style = "color: rgb(152, 36, 7);font-size: 500%; font-family: quicksandbold; text-align: center;
+         position:relative; top:80px; left:0px;">HealthEE</strong></h1>
+        <h1 style = "color: rgb(152, 36, 7); font-size: 330%; font-family: quicksandbold; position:relative;
+        top:75px; text-align: center; left:0px;"><strong>Revolutionary health monitoring</strong></h1>
+        <p style = "color: rgb(152, 36, 7); font-size: 200%; font-family: quicksandlight; text-align:center; position:relative;
+         top:120px;">HealthEE makes use of cutting-edge technology</p>
+        <p style = "color: rgb(152, 36, 7); font-size: 200%; font-family: quicksandlight; text-align:center; position:relative;
+         top:120px;"> to give you advice on how to stay healthy.</p>
+        
+
+        <script type="module" src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+        <script type="module" src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
+        <script src="./a.mjs"></script>
+        <script type="module" src = 'firebase/app'></script>
+        <script type="module" src = 'firebase/database'></script>
+
+        <script>
+        function openNav() {
+            document.getElementById("side_menu").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("side_menu").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+        }
+        </script>
+    
+    
+
+    <script type="module">
+     
+        import { initializeApp } from 'firebase/app';
+        import { getDatabase, ref, set } from 'firebase/database';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAz1R9Y4rgIUDR4TINqXvG2BbjZGzlWbXs",
+            authDomain: "embedded-lab-2-part-2.firebaseapp.com",
+            databaseURL: "https://embedded-lab-2-part-2-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "embedded-lab-2-part-2",
+            storageBucket: "embedded-lab-2-part-2.appspot.com",
+            messagingSenderId: "164614426559",
+            appId: "1:164614426559:web:cf7044cee5ca58327adb0a",
+            measurementId: "G-FNKN7NGVYY"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+    </body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-database.js"></script>
+    <script>
+      // Initialize Firebase app
+      var firebaseConfig = {
+        apiKey: "AIzaSyAz1R9Y4rgIUDR4TINqXvG2BbjZGzlWbXs",
+        authDomain: "embedded-lab-2-part-2.firebaseapp.com",
+        databaseURL: "https://embedded-lab-2-part-2-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "embedded-lab-2-part-2",
+        storageBucket: "embedded-lab-2-part-2.appspot.com",
+        messagingSenderId: "164614426559",
+        appId: "1:164614426559:web:cf7044cee5ca58327adb0a",
+        measurementId: "G-FNKN7NGVYY"
+    };
+      firebase.initializeApp(firebaseConfig);
+
+      // Get reference to the database
+      var database = firebase.database();
+
+      // Read data from the database
+      var dataRef = database.ref('/sensors');
+      dataRef.on('value', function(snapshot) {
+        var data = snapshot.val();
+
+        // Extract data from the snapshot
+        var humidityData = Object.values(data.Humidity);
+        var temperatureData = Object.values(data.Temperature);
+        var co2Data = Object.values(data.CO2);
+        var pressureData = Object.values(data.Pressure);
+        var tvocData = Object.values(data.TVOC);
+        var timeData = Object.keys(data.Humidity).map(function(timestamp) {
+          return new Date(parseInt(timestamp)).toLocaleTimeString('en-GB', { hour: 'numeric', minute: 'numeric' });
+        });
+
+        // Create a chart using Chart.js library
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var chart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: timeData,
+            datasets: [
+              {
+                label: 'Humidity',
+                data: humidityData,
+                borderColor: 'blue',
+                fill: false
+              },
+              {
+                label: 'Temperature',
+                data: temperatureData,
+                borderColor: 'red',
+                fill: false
+              },
+              {
+                label: 'CO2',
+                data: co2Data,
+                borderColor: 'green',
+                fill: false
+              },
+              {
+                label: 'Pressure',
+                data: pressureData,
+                borderColor: 'orange',
+                fill: false
+              },
+              {
+                label: 'TVOC',
+                data: tvocData,
+                borderColor: 'purple',
+                fill: false
+              }
+            ]
+          },
+          options: {
+            scales: {
+              xAxes: [{
+                type: 'time',
+                time: {
+                  unit: 'hour',
+                  displayFormats: {
+                    hour: 'HH:mm'
+                  }
+                },
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Time of Day (24h format)'
+                }
+              }],
+              yAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Sensor Readings'
+                }
+              }]
+            },
+            tooltips: {
+              mode: 'index',
+              intersect: false,
+              callbacks: {
+                label: function(tooltipItem, data) {
+                  var datasetLabel = data.datasets[tooltipItem.datasetIndex].label || '';
+                  return datasetLabel + ': ' + tooltipItem.yLabel;
+                }
+              }
+            }
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <canvas id="myChart"></canvas>
+  </body>
+</html>
