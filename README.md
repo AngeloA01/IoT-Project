@@ -21,6 +21,7 @@ Operating Website:
     View the site!
 
 Pi Overview: 
+    install CircuitPython
     Data is collected from sensors using I2C bus. 
     This data is averaged out with the previous 60 values to provide a moving average.
     This flattens fluctuations in the data.
