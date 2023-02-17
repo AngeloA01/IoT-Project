@@ -9,7 +9,7 @@ import time
 
 
 # Fetch the service account key JSON file contents
-cred = credentials.Certificate('/Users/aryanrana/Desktop/embedded-lab-2-part-2-firebase-adminsdk-676w2-d21fb25bd3.json')
+cred = credentials.Certificate('embedded-lab-2-part-2-firebase-adminsdk-676w2-d21fb25bd3.json')
 
 # Initialize the app with a custom auth variable, limiting the server's access
 firebase_admin.initialize_app(cred, {
