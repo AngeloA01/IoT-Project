@@ -131,12 +131,18 @@ def ProcessTuple():
                                         outmessage+= humidity_messages[0]
                                 else: 
                                         outmessage+= humidity_messages[2]
-        if (curr_tvoc < 50):
+        if (curr_tvoc < 200):
                 outmessage += "Nominal TVoC Levels. "
         else: 
-                if curr_tvoc > 50: 
+
+                if curr_tvoc > 1000:
+                        outmessage+= "TVoCs are very high, ventilate the room if you are indoors.  "
+
+                elif curr_tvoc > 200: 
                         rand = random.randint(0, len(TVoC_messages)-1)
                         outmessage+= TVoC_messages[rand]
+
+                
 
         return outmessage
                         
