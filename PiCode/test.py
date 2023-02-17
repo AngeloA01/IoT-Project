@@ -90,53 +90,6 @@ def movingAverageGeneral(array):
         average = runningSum/measured
         return average
 
-
-
-# def movingAverage():
-#     if (lastTemps == [None] * 60):
-#         return False
-#     else:
-#         measured = 0
-#         runningSum = 0
-#         for x in range(0,60):
-#             if (lastTemps[x] != None):
-#                 runningSum += lastTemps[x]
-#                 measured += 1
-#             elif lastTemps[x] == None:
-#                 average = runningSum/measured
-#                 return average
-        
-# def humidMovingAverage():
-#     if (lastHumid == [None] * 60):
-#         return False
-#     else:
-#         measured = 0
-#         runningSum = 0
-#         for x in range(0,60):
-#             if (lastHumid[x] != None):
-#                 runningSum += lastHumid[x]
-#                 measured += 1
-#             elif lastHumid[x] == None:
-#                 average = runningSum/measured
-#                 return average
-
-
-# def pressureMovingAverage():
-#     if (lastPress == [None] * 60):
-#         return False
-#     else:
-#         measured = 0
-#         runningSum = 0
-#         for x in range(0,60):
-#             if (lastPress[x] != None):
-#                 runningSum += lastPress[x]
-#                 measured += 1
-#             elif lastPress[x] == None:
-#                 average = runningSum/measured
-#                 return average
-        
-
-
 #tuple definitions: moderate heat warning, dry conditions, moderate cold warning, ice warning
 messageTuple = {False, False, False, False}
 
@@ -222,17 +175,18 @@ try:
 
         time.sleep(0.1)
 
-       
-
-      
-        
-
+    
         lastTemps[counter] = celcius
         lastHumid[counter] = rel_humidity
         lastPress[counter] = sensor.pressure
         lastCO2[counter] = ccs811.eco2
         lastTVOC[counter] = ccs811.tvoc
         counter += 1
+        avgTemp = movingAverageGeneral(lastHumid)
+        avgHumid = movingAverageGeneral(lastHumid)
+        avgPress = movingAverageGeneral(lastPress)
+        avgCO2 = movingAverageGeneral(lastCO2)
+        avgTVOC = movingAverageGeneral(lastTVOC)
         print("Temperature Moving Average: ", movingAverageGeneral(lastTemps))
         print("Humidity Moving Average   : ", movingAverageGeneral(lastHumid))
         print("Pressure Moving Average   : ", movingAverageGeneral(lastPress))
@@ -241,22 +195,24 @@ try:
         print("CO2 Moving Average, PPM   : ", movingAverageGeneral(lastCO2))
         print("TVOC Moving Average, PPB  : ", movingAverageGeneral(lastTVOC))
 
-        time.sleep(0.3)
+        time.sleep(4.8) #Every 5 secs. 
+
+    
 
         totalAverageTemp = (totalAverageTemp*(counter) + celcius)/(counter+1)
 
         if (counter == 60): counter = 0
 
-        # path = "temp_&_humidity.json"
-        # data = {"Temperature: ": celcius, "Humidity: ": rel_humidity}
-        # response = authed_session.post(db+path, json=data)
+        if (counter == 30):
+            path = "allValues.json"
+            data = {"Temperature: ": avgTemp, "Humidity: ": avgHumid, "Pressure: ": avgPress, "CO2: ": avgCO2, "TVOC: ": avgTVOC}
+            response = authed_session.post(db+path, json=data)
 
-        # if response.ok:
-        #     print("Created new node named {}".format(response.json()["name"]))
-        # else:
-        #     raise ConnectionError("Could not write to database: {}".format(response.text))
-        # # if counter == 10:
-        # #     #send data - Insert function here
+            if response.ok:
+                print("Created new node named {}".format(response.json()["name"]))
+            else:
+                raise ConnectionError("Could not write to database: {}".format(response.text))
+       
 except KeyboardInterrupt:
     active = False
  
