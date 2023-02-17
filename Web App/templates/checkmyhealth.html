@@ -30,7 +30,7 @@
 
         .chart {
         flex: 1;
-        width: 100px !important;
+        width: 200px !important;
         height: 100px !important;
         display: inline-block;
         margin: 10px;
@@ -68,7 +68,7 @@
             padding-top: 60px;
             transition: 0.7s
         }
-        .sidemenu a{ /*links*/
+        .sidemenu a{
             padding: 8px 8px 25px 40px;
             font-size: 25px;
             color:rgb(231, 239, 253);
@@ -129,10 +129,10 @@
         </div>
 
         <h1 style="font-family: 'quicksandbold'; font-size:180%; text-align:center;
-         top:60px; position: relative">Click the button below to learn how to stay healthy in these conditions!</h1>
+         top:30px; position: relative">Click the button below to learn how to stay healthy in these conditions!</h1>
 
         <button class = "btn temp" onclick = "display_info()"
-         style = "font-family: 'quicksandbold'; font-size:130% ;position: relative; top:300px;
+         style = "font-family: 'quicksandbold'; font-size:130% ;position: relative; top:380px;
          left:600px">Give me advice!</button>
 
     <script>
@@ -155,10 +155,9 @@
         }
     </script>
     
-    <!-- graph data--------------------------------------- -->
     <script>
 
-        // Define a variable to store the chart object
+
         var tempChart;
         
         function fetchTemperature() {
@@ -168,7 +167,7 @@
                     var response = JSON.parse(xhr.responseText);
                     var tempValue = response.Temperature;
                     console.log(tempValue);
-                    // If the chart hasn't been created yet, create it
+         
                     if (!tempChart) {
                         var ctx = document.getElementById("temperature_chart").getContext("2d");
                         var data = {
@@ -196,11 +195,11 @@
                             options: options
                         });
                     } else {
-                        // If the chart already exists, update its data and redraw it
+
                         tempChart.data.datasets[0].data[0] = tempValue;
                         tempChart.update();
                     }
-                    // Update the temperature value display
+                  
                     document.getElementById("temp_value").innerHTML = "The temperature is currently " + tempValue + " degrees Celsius";
                 }
             }
@@ -254,11 +253,11 @@
                                 
                             });
                         } else {
-                            // If the chart already exists, update its data and redraw it
+
                             humidityChart.data.datasets[0].data[0] = humidityValue;
                             humidityChart.update();
                         }
-                        // Update the humidity value display
+
                         document.getElementById("humidity_value").innerHTML = "The humidity is currently " + humidityValue +" percent";
                     }
                 }
@@ -270,7 +269,7 @@
             
             </script>
     <script>
-        // Define a variable to store the chart object
+
         var pressureChart;
         
         function fetchPressure() {
@@ -280,7 +279,7 @@
                     var response = JSON.parse(xhr.responseText);
                     var pressureValue = response.Pressure;
                     console.log(pressureValue);
-                    // If the chart hasn't been created yet, create it
+
                     if (!pressureChart) {
                         var ctx = document.getElementById("pressure_chart").getContext("2d");
                         var data = {
@@ -308,12 +307,12 @@
                             options: options
                         });
                     } else {
-                        // If the chart already exists, update its data and redraw it
+
                         pressureChart.data.datasets[0].data[0] = pressureValue;
                         pressureChart.update();
                     }
-                    // Update the Pressure value display
-                    document.getElementById("pressure_value").innerHTML = "The pressure is currently" + pressureValue + " hPa";
+
+                    document.getElementById("pressure_value").innerHTML = "The pressure is currently " + pressureValue + " hPa";
                 }
             }
             xhr.open('GET', '/Pressure_stream', true);
@@ -325,7 +324,7 @@
         </script>
     
     <script>
-        // Define a variable to store the chart object
+
         var tvocChart;
         
         function fetchTVOC() {
@@ -335,7 +334,7 @@
                     var response = JSON.parse(xhr.responseText);
                     var tvocValue = response.TVOC;
                     console.log(tvocValue);
-                    // If the chart hasn't been created yet, create it
+
                     if (!tvocChart) {
                         var ctx = document.getElementById("tvoc_chart").getContext("2d");
                         var data = {
@@ -363,11 +362,11 @@
                             options: options
                         });
                     } else {
-                        // If the chart already exists, update its data and redraw it
+
                         tvocChart.data.datasets[0].data[0] = tvocValue;
                         tvocChart.update();
                     }
-                    // Update the TVOC value display
+
                     document.getElementById("tvoc_value").innerHTML = "The total volatile organic compounds is currently " + tvocValue + " mg/m3";
                 }
             }
@@ -380,18 +379,17 @@
 
 <script>
 
-    // Define a variable to store the chart object
+
     var co2Chart;
     
     function fetchCO2() {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) {
-               // var co2Value = parseFloat(xhr.responseText);
                 var response = JSON.parse(xhr.responseText);
                 var co2Value = response.C02;
                 console.log(co2Value);
-                // If the chart hasn't been created yet, create it
+
                 if (!co2Chart) {
                     var ctx = document.getElementById("C02_chart").getContext("2d");
                     var data = {
@@ -419,12 +417,12 @@
                         options: options
                     });
                 } else {
-                    // If the chart already exists, update its data and redraw it
+
                     co2Chart.data.datasets[0].data[0] = co2Value;
                     co2Chart.update();
                 }
-                // Update the CO2 value display
-                document.getElementById("co2_value").innerHTML = "C02 result " + co2Value + " ppm.";
+
+                document.getElementById("co2_value").innerHTML = "The C02 composition in the air is " + co2Value + " ppm.";
             }
         }
         xhr.open('GET', '/C02_stream', true);
@@ -434,8 +432,6 @@
     setInterval(fetchCO2, 1000);
     
     </script>
-
-    <!-- graph data--------------------------------------- -->
 
     <script>
         const response5 = await fetch("http://127.0.0.1:8000/Advice");
@@ -448,35 +444,36 @@
     <body>
         <div class="chart-container">
 
-        <canvas id="pressure_chart"  class="chart"></canvas>
+        <canvas id="pressure_chart"  class="chart" style="position:relative; top:-30px;left:120px"></canvas>
 
-        <canvas id="C02_chart"  class="chart"></canvas>
+        <canvas id="C02_chart"  class="chart" style="position:relative; top:-30px;left:140px"></canvas>
 
-        <canvas id="tvoc_chart"  class="chart"></canvas>
+        <canvas id="tvoc_chart"  class="chart" style="position:relative; top:-30px;left:160px"></canvas>
 
-        <canvas id="temperature_chart"  class="chart"></canvas>
+        <canvas id="temperature_chart"  class="chart" style = "position:relative; top:-30px;left:180px"></canvas>
 
-        <canvas id="humidity_chart"  class="chart"></canvas>
+        <canvas id="humidity_chart"  class="chart" style="position:relative; top:-30px;left:200px"></canvas>
         
         </div>
 
-        <span id = "advice" style = "position:relative; text-align: center; top:140px;font-size: 140%; color:#920000; font-family: 'quicksandbold';"></span>
+        <span id = "advice" style = "position:relative; text-align: center; top:250px;left:135px;font-size: 100%; color:#920000; font-family: 'quicksandbold';"></span>
         
         <div class="word-container">
 
         <span id="pressure_value", style = "color:rgb(152, 36, 7); margin: 30px;font-family:'quicksandbold'; font-size:130%; top:120px; text-align: center;
-        position: relative"> Pressure_result </span>
+        position: relative; top:-40px;left:140px"> Pressure_result </span>
 
         <span id="co2_value", style = "color:rgb(152, 36, 7); margin: 30px;font-family:'quicksandbold'; font-size:130%; top:120px; text-align: center;
-        position: relative"> C02_result</span>
+        position: relative; top:-40px;left:210px"> C02_result</span>
 
         <span id="tvoc_value", style = "color:rgb(152, 36, 7); margin: 30px;font-family:'quicksandbold'; font-size:130%; top:120px; text-align: center;
-        position: relative">TVOC_result </span>
+        position: relative; top:-40px;left:250px">TVOC_result </span>
 
-        <span id="temp_value" style="color:rgb(152, 36, 7); margin: 30px; font-family:'quicksandbold'; font-size:130%; top:120px; text-align: center; position: relative">Temperature_result </span>
+        <span id="temp_value" style="color:rgb(152, 36, 7); margin: 30px; font-family:'quicksandbold'; font-size:130%; top:120px;
+         text-align: center; position: relative; top:-40px;left:290px">Temperature_result </span>
 
         <span id="humidity_value", style = "color:rgb(152, 36, 7); margin: 30px;font-family:'quicksandbold'; font-size:130%; top:120px; text-align: center;
-        position: relative">Humidity_result </span>
+        position: relative; top:-40px;left:350px">Humidity_result </span>
        
 
        
@@ -487,3 +484,4 @@
     </body>
 
 </html>
+       
