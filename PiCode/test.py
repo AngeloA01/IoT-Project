@@ -195,7 +195,7 @@ try:
         print("CO2 Moving Average, PPM   : ", movingAverageGeneral(lastCO2))
         print("TVOC Moving Average, PPB  : ", movingAverageGeneral(lastTVOC))
 
-        time.sleep(4.8) #Every 5 secs. 
+        time.sleep(0.3) #Every 5 secs. 
 
     
 
@@ -203,7 +203,7 @@ try:
 
         if (counter == 60): counter = 0
 
-        if (counter == 30):
+        if (counter % 10 == 0):
             path = "allValues.json"
             data = {"Temperature: ": avgTemp, "Humidity: ": avgHumid, "Pressure: ": avgPress, "CO2: ": avgCO2, "TVOC: ": avgTVOC}
             response = authed_session.post(db+path, json=data)
