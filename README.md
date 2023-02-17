@@ -9,7 +9,7 @@ Device - Using raspberry pi and add ons, create a device that is able to take in
 
 Project End:
 
-Marketing Website - wrasse-ferret-edel.squarespace.com
+Marketing Website - stingray-cobalt-lrr6.squarespace.com
          Password - embeddedhairline
 
 Operating Website: 
