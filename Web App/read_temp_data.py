@@ -17,7 +17,7 @@
 #         return round(avg, 1)
 # print(get_temperature())
 
-import firebase_admin
+
 from firebase_admin import credentials, db
 import time
 
